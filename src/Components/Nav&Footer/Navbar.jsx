@@ -4,12 +4,89 @@ import Logo from '../../Shared/Logo';
 
 const Navbar = () => {
     const links = <>
-        <li><NavLink to={'/services'}>Services</NavLink></li>
-        <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
-        <li><NavLink to={'/aboutus'}>About Us</NavLink></li>
-        <li><NavLink to={'/pricing'}>Pricing</NavLink></li>
-        <li><NavLink to={'/blog'}>Blog</NavLink></li>
-        <li><NavLink to={'/contact'}>Contact</NavLink></li>
+        <li>
+            <NavLink
+                to="/services"
+                className={({ isActive }) =>
+                    `px-4 py-2 rounded-xl font-medium transition-all duration-300 ${isActive
+                        ? "bg-[#caeb66] text-black shadow-md"
+                        : "text-gray-700 hover:bg-[#caeb66]/30 hover:text-black"
+                    }`
+                }
+            >
+                Services
+            </NavLink>
+        </li>
+
+        <li>
+            <NavLink
+                to="/coverage"
+                className={({ isActive }) =>
+                    `px-4 py-2 rounded-xl font-medium transition-all duration-300 ${isActive
+                        ? "bg-[#caeb66] text-black shadow-md"
+                        : "text-gray-700 hover:bg-[#caeb66]/30 hover:text-black"
+                    }`
+                }
+            >
+                Coverage
+            </NavLink>
+        </li>
+
+        <li>
+            <NavLink
+                to="/aboutus"
+                className={({ isActive }) =>
+                    `px-4 py-2 rounded-xl font-medium transition-all duration-300 ${isActive
+                        ? "bg-[#caeb66] text-black shadow-md"
+                        : "text-gray-700 hover:bg-[#caeb66]/30 hover:text-black"
+                    }`
+                }
+            >
+                About Us
+            </NavLink>
+        </li>
+
+        <li>
+            <NavLink
+                to="/pricing"
+                className={({ isActive }) =>
+                    `px-4 py-2 rounded-xl font-medium transition-all duration-300 ${isActive
+                        ? "bg-[#caeb66] text-black shadow-md"
+                        : "text-gray-700 hover:bg-[#caeb66]/30 hover:text-black"
+                    }`
+                }
+            >
+                Pricing
+            </NavLink>
+        </li>
+
+        <li>
+            <NavLink
+                to="/blog"
+                className={({ isActive }) =>
+                    `px-4 py-2 rounded-xl font-medium transition-all duration-300 ${isActive
+                        ? "bg-[#caeb66] text-black shadow-md"
+                        : "text-gray-700 hover:bg-[#caeb66]/30 hover:text-black"
+                    }`
+                }
+            >
+                Blog
+            </NavLink>
+        </li>
+
+        <li>
+            <NavLink
+                to="/contact"
+                className={({ isActive }) =>
+                    `px-4 py-2 rounded-xl font-medium transition-all duration-300 ${isActive
+                        ? "bg-[#caeb66] text-black shadow-md"
+                        : "text-gray-700 hover:bg-[#caeb66]/30 hover:text-black"
+                    }`
+                }
+            >
+                Contact
+            </NavLink>
+        </li>
     </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -25,7 +102,7 @@ const Navbar = () => {
                     </ul>
                 </div>
                 {/* Logo Components */}
-               <Logo></Logo>
+                <Logo></Logo>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -33,7 +110,7 @@ const Navbar = () => {
                 </ul>
             </div>
             <div className="navbar-end">
-                <a className="btn">Button</a>
+                <a className="primaryBtn">Button</a>
             </div>
         </div>
     );
