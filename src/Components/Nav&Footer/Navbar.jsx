@@ -1,6 +1,15 @@
 import React from 'react';
+import { NavLink } from 'react-router';
 
 const Navbar = () => {
+    const links = <>
+        <li><NavLink to={'/services'}>Services</NavLink></li>
+        <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
+        <li><NavLink to={'/aboutus'}>About Us</NavLink></li>
+        <li><NavLink to={'/pricing'}>Pricing</NavLink></li>
+        <li><NavLink to={'/blog'}>Blog</NavLink></li>
+        <li><NavLink to={'/contact'}>Contact</NavLink></li>
+    </>
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="navbar-start">
