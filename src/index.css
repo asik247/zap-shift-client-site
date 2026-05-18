@@ -1,6 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Urbanist:ital,wght@0,100..900;1,100..900&display=swap');
 @import "tailwindcss";
-
 @plugin "daisyui" {
     themes: light --default;
 }
@@ -9,8 +8,11 @@ body {
     font-family: "Urbanist", sans-serif;
     font-optical-sizing: auto;
 }
+@plugin "daisyui/theme" {
+  --color-primary: #caeb66;
+  --color-base-100:#03373d;
+  --color-base-100: #03373d;
+}
 .primaryBtn{
     background-color: rgba(202, 235, 102, 1);
-    
-    
 }

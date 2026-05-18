@@ -3,11 +3,11 @@ import Logo from '../../Shared/Logo';
 
 const Footer = () => {
     return (
-        <footer className="footer footer-horizontal footer-center bg-black text-primary-content p-10">
+        <footer className="footer  footer-horizontal footer-center text-primary-content p-10">
             <aside>
                 {/* <img src={} alt="" /> */}
                 <Logo></Logo>
-                <p className="font-bold">
+                <p className="font-bold text-primary">
                     ACME Industries Ltd.
                     <br />
                     Providing reliable tech since 1992
