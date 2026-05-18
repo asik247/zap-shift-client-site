@@ -2,8 +2,9 @@ import React from 'react';
 
 const Services = () => {
     return (
-        <div>
+        <div className='  '>
             <p>Services here</p>
+           
         </div>
     );
 };
