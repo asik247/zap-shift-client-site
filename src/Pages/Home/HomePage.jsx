@@ -3,8 +3,7 @@ import Banner from '../Banner/Banner';
 
 const HomePage = () => {
     return (
-        <div>
-            <p>hi iam home pages</p>
+        <div className='mt-4'>
             <Banner></Banner>
         </div>
     );
