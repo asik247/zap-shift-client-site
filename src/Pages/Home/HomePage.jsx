@@ -4,6 +4,7 @@ import FourCards from './FourCards/FourCards';
 import OurService from './OurServices/OurService';
 import Brand from './Brands/Brand';
 import Reviews from './Reviews/Reviews';
+import LIvePercel from './LivePercel/LIvePercel';
 const HomePage = () => {
     const [revewData,setReviewData] = useState([])
     useEffect(()=>{
@@ -22,6 +23,9 @@ const HomePage = () => {
             </div>
             <div>
                 <Brand></Brand>
+            </div>
+            <div>
+                <LIvePercel></LIvePercel>
             </div>
             <div>
                 <Reviews revewData={revewData}></Reviews>

@@ -45,9 +45,9 @@ const Reviews = ({ revewData }) => {
                     speed={800}
 
                     autoplay={{
-                        delay: 1000,
+                        delay: 2500,
                         disableOnInteraction: false,
-                        pauseOnMouseEnter: true,
+                        pauseOnMouseEnter: false,
                     }}
 
                     coverflowEffect={{
