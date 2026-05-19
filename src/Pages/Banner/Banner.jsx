@@ -10,7 +10,7 @@ const Banner = () => {
     return (
         <div className="w-full rounded-2xl overflow-hidden">
             <Carousel
-                // autoPlay
+                autoPlay
                 infiniteLoop
                 stopOnHover={false}
                 interval={3500}

@@ -49,7 +49,7 @@ const OurService = () => {
     ];
 
     return (
-        <div className="py-16 px-5 max-w-7xl mx-auto">
+        <div className="py-10 px-5 max-w-7xl mx-auto">
 
             {/* Rounded Background Wrapper */}
             <div className="bg-[#03373D] rounded-3xl py-14 px-6 md:px-10">
@@ -68,6 +68,7 @@ const OurService = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
 
                     {servicesData.map((service) => (
+                        
                         <div
                             key={service.id}
                             className="bg-white rounded-2xl p-6 border border-gray-100 shadow-sm 
