@@ -1,6 +1,7 @@
 import React from 'react';
-import { NavLink } from 'react-router';
+import { Link, NavLink } from 'react-router';
 import Logo from '../../Shared/Logo';
+import { FaArrowUp } from 'react-icons/fa';
 
 const Navbar = () => {
     const links = <>
@@ -109,8 +110,26 @@ const Navbar = () => {
                     {links}
                 </ul>
             </div>
-            <div className="navbar-end">
-                <a className="primaryBtn">Button</a>
+            <div className="navbar-end gap-3">
+
+                <Link
+                    className="btn rounded-full px-6 bg-white text-black border-none hover:bg-[#caeb66] hover:scale-105 transition-all duration-300"
+                >
+                    Sign In
+                </Link>
+
+                <Link
+                    className="btn rounded-full px-6 bg-[#caeb66] text-black border-none hover:bg-lime-300 hover:scale-105 transition-all duration-300"
+                >
+                    Be a rider
+                </Link>
+
+                <button
+                    className="w-11 h-11 rounded-full bg-black text-white flex items-center justify-center hover:bg-[#caeb66] hover:text-black hover:rotate-12 transition-all duration-300"
+                >
+                    <FaArrowUp className="rotate-60 text-lg" />
+                </button>
+
             </div>
         </div>
     );
