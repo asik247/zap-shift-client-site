@@ -27,38 +27,41 @@ const Brand = () => {
     return (
         <div className="py-5">
 
-            <div className="text-center mb-4">
-                <p className="text-primary font-semibold uppercase tracking-widest">
-                   We've helped thousands of sales teams
+            <div className="text-center mb-6">
+                <p className="text-primary font-semibold uppercase tracking-widest text-xs sm:text-sm">
+                    We've helped thousands of sales teams
                 </p>
-
             </div>
 
             <Swiper
-                slidesPerView={5}
-                spaceBetween={20}
+                slidesPerView={2}
+                spaceBetween={10}
                 loop={true}
                 autoplay={{
-                    delay: 1000,
+                    delay: 1200,
                     disableOnInteraction: false,
+                }}
+                breakpoints={{
+                    640: { slidesPerView: 3 },
+                    768: { slidesPerView: 4 },
+                    1024: { slidesPerView: 5 },
                 }}
                 modules={[Autoplay]}
                 className="mySwiper"
             >
-                {
-                    brandLogos.map((logo, index) => (
-                        <SwiperSlide key={index}>
-                            <div className="flex justify-center items-center">
-                                <img
-                                    src={logo}
-                                    alt="brand"
-                                    className="w-32 h-16 object-contain"
-                                />
-                            </div>
-                        </SwiperSlide>
-                    ))
-                }
+                {brandLogos.map((logo, index) => (
+                    <SwiperSlide key={index}>
+                        <div className="flex justify-center items-center">
+                            <img
+                                src={logo}
+                                alt="brand"
+                                className="w-20 sm:w-28 md:w-32 h-12 sm:h-14 md:h-16 object-contain"
+                            />
+                        </div>
+                    </SwiperSlide>
+                ))}
             </Swiper>
+
         </div>
     );
 };

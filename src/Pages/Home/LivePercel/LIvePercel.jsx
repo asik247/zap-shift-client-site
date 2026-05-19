@@ -41,7 +41,7 @@ const LiveParcel = () => {
                         />
                     </div>
 
-                    <div className="flex flex-col items-center my-4 text-gray-400">
+                    <div className="flex flex-row lg:flex-col items-center my-4 text-gray-400">
                         <span className="w-1 h-1 bg-gray-400 rounded-full my-1"></span>
                         <span className="w-1 h-1 bg-gray-400 rounded-full my-1"></span>
                         <span className="w-1 h-1 bg-gray-400 rounded-full my-1"></span>
