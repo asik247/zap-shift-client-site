@@ -12,6 +12,7 @@ import AllError from "../Pages/AllError/AllError";
 import AuthLayout from "../Layouts/AuthLayout";
 import Registation from "../Pages/Auth/Registation";
 import LogIn from "../Pages/Auth/LogIn";
+import PrivateRoutes from "./PrivateRoutes";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -21,7 +22,7 @@ const router = createBrowserRouter([
             {index:true,Component:HomePage},
             {path:'aboutPage',Component:AboutPage},
             {path:'services',element:<Services></Services>},
-            {path:'coverage',element:<CoverPage></CoverPage>,loader:()=>fetch('/servicesHouse.json').then(res=>res.json())},
+            {path:'coverage',element:<PrivateRoutes><CoverPage></CoverPage></PrivateRoutes>,loader:()=>fetch('/servicesHouse.json').then(res=>res.json())},
             {path:'aboutus',element:<AboutPage></AboutPage>},
             {path:'pricing',element:<Priching></Priching>},
             {path:'blog',element:<Blog></Blog>},
