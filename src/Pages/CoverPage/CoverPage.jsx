@@ -2,6 +2,7 @@ import React, { useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css'
 import { useLoaderData } from 'react-router';
+import { DiSafari } from 'react-icons/di';
 
 const CoverPage = () => {
     const services = useLoaderData();
@@ -9,15 +10,14 @@ const CoverPage = () => {
     // const position = [51.505, -0.09]
     const position = [23.6850, 90.3563];
     const mapRef = useRef(null)
-    const searchSubmit = e=>{
+    const searchSubmit = e => {
         e.preventDefault();
-        const location = e.target.location.value;
-        // console.log(location);
-        const districs = services.find(center=>center.district.toLowerCase().includes(location.toLowerCase()));
-        if(districs){
-            const coord = [districs.latitude,districs.longitude];
-            // console.log(coord);
-            mapRef.current.flyTo(coord , 14)
+        // console.log('search value',e.target.location.value);
+        const districk = services.find(center => center.district.toLowerCase().includes(e.target.location.value.toLowerCase()));
+        if (districk) {
+            const coodk = [districk.latitude, districk.longitude];
+            console.log(coodk);
+            mapRef.current.flyTo(coodk, 14)
         }
     }
     return (
@@ -41,7 +41,7 @@ const CoverPage = () => {
                             </g>
                         </svg>
                         <input type="search" name='location' className="grow" placeholder="Search" />
-                        
+
                     </label>
                 </form>
             </div>
