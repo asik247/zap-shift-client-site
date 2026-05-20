@@ -1,11 +1,20 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
+import useAuth from '../../Hooks/useAuth';
 
 const Registation = () => {
+    //!userinfo get authProvider;
+    const {registerUsers} = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm()
     const handleRegistater = (data) => {
         console.log('resigatio data;', data);
+        registerUsers(data.email,data.password)
+        .then(res=>{
+            console.log(res.user);
+        }).catch(error=>{
+            console.log(error.message);
+        })
 
     }
     return (
