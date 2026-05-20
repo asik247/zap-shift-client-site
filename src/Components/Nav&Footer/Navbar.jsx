@@ -89,7 +89,7 @@ const Navbar = () => {
 
                     {/* Mobile buttons */}
                     <div className="flex flex-col gap-2 p-4 border-t">
-                        <Link className="btn rounded-full bg-white border border-gray-200">
+                        <Link to={'/auth/login'} className="btn rounded-full bg-white border border-gray-200">
                             Sign In
                         </Link>
 

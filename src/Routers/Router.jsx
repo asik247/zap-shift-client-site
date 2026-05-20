@@ -9,6 +9,9 @@ import Blog from "../Pages/Blog/Blog";
 import Contact from "../Pages/Contact/Contact";
 import Error404 from "../Pages/Error/Error404";
 import AllError from "../Pages/AllError/AllError";
+import AuthLayout from "../Layouts/AuthLayout";
+import Registation from "../Pages/Auth/Registation";
+import LogIn from "../Pages/Auth/LogIn";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -24,6 +27,14 @@ const router = createBrowserRouter([
             {path:'blog',element:<Blog></Blog>},
             {path:'contact',element:<Contact></Contact>},
             {path:'*',Component:Error404}
+        ]
+    },
+    {
+        path:'/',
+        Component:AuthLayout,
+        children:[
+            {path:'registation',element:<Registation></Registation>},
+            {path:'login',element:<LogIn></LogIn>}
         ]
     }
 ])
