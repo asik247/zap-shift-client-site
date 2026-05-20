@@ -2,19 +2,41 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import useAuth from '../../Hooks/useAuth';
+import axios from 'axios';
 
 const Registation = () => {
     //!userinfo get authProvider;
-    const {registerUsers} = useAuth()
+    const { registerUsers,updateUserProfile } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm()
     const handleRegistater = (data) => {
-        console.log('resigatio data;', data);
-        registerUsers(data.email,data.password)
-        .then(res=>{
-            console.log(res.user);
-        }).catch(error=>{
-            console.log(error.message);
-        })
+        console.log('resigatio data;', data.photo[0]);
+        //Todo:profileImg;
+        const profileImg = data.photo[0];
+        registerUsers(data.email, data.password)
+            .then(res => {
+                console.log(res.user);
+                //Todo: store the img and get the photo url;
+                const formData = new FormData();
+                formData.append('image',profileImg);
+                const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imagebb_key}`
+                
+                axios.post(image_API_URL,formData)
+                .then(res=>{
+                    // console.log('after url get:',res.data.data.url);
+                    const userProfile = {
+                        displayName:data.name,
+                        photoURL:res.data.data.url
+                    }
+                    updateUserProfile(userProfile)
+                    .then(()=>{
+                        console.log('successfully update profile');
+                    }).catch(error=>{
+                        console.log(error);
+                    })
+                })
+            }).catch(error => {
+                console.log(error.message);
+            })
 
     }
     return (
@@ -35,6 +57,42 @@ const Registation = () => {
                 <fieldset className="space-y-5">
 
                     {/* Email */}
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Your Name
+                        </label>
+
+                        <input
+                            type="text"
+                            {...register("name", { required: true })}
+                            className="w-full h-12 px-4 rounded-xl border border-gray-300 bg-gray-50 outline-none focus:border-[#CAEB66] focus:ring-4 focus:ring-lime-100 transition-all"
+                            placeholder="Enter your name"
+                        />
+
+                        {errors.name?.type === 'required' && (
+                            <p className='text-red-500 text-sm mt-2'>
+                                Email is required
+                            </p>
+                        )}
+                    </div>
+                    <div>
+                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                            Photo
+                        </label>
+                        {/* <input type="file" className="file-input" /> */}
+                        <input
+                            type="file"
+                            {...register("photo", { required: true })}
+                            className=" file-input"
+                            placeholder="PhotoURL"
+                        />
+
+                        {errors.photo?.type === 'required' && (
+                            <p className='text-red-500 text-sm mt-2'>
+                                Email is required
+                            </p>
+                        )}
+                    </div>
                     <div>
                         <label className="block text-sm font-semibold text-gray-700 mb-2">
                             Email Address
