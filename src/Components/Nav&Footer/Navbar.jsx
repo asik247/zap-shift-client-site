@@ -52,7 +52,7 @@ const Navbar = () => {
                 {/* Right Actions */}
                 <div className="flex items-center gap-3">
 
-                    <Link
+                    <Link to={'/login'}
                         className="hidden sm:inline-flex items-center justify-center px-6 py-2 rounded-full bg-white text-black border border-gray-200 hover:bg-[#caeb66] hover:scale-105 transition-all duration-300"
                     >
                         Sign In
@@ -89,7 +89,7 @@ const Navbar = () => {
 
                     {/* Mobile buttons */}
                     <div className="flex flex-col gap-2 p-4 border-t">
-                        <Link to={'/auth/login'} className="btn rounded-full bg-white border border-gray-200">
+                        <Link to={'/login'} className="btn rounded-full bg-white border border-gray-200">
                             Sign In
                         </Link>
 
