@@ -4,8 +4,10 @@ import authImage from '../assets/authImage.png'
 import Logo from '../Shared/Logo';
 const AuthLayout = () => {
     return (
-        <div>
-           <Logo></Logo>
+        <div className='w-11/12 mx-auto'>
+            <div>
+                <Logo></Logo>
+            </div>
             <div className='flex items-center gap-4'>
                 <div className='flex-1'>
                     <Outlet></Outlet>
