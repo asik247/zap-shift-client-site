@@ -2,18 +2,19 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router';
 import useAuth from '../../Hooks/useAuth';
+import GoogleLogin from '../SocialLogIn/GoogleLogin';
 
 const LogIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
-    const {logInUsers} = useAuth();
+    const { logInUsers } = useAuth();
     const handleLoginSubmiter = (data) => {
         console.log(data);
-        logInUsers(data.email,data.password)
-        .then(res=>{
-            console.log(res.user);
-        }).catch(error=>{
-            console.log(error.message);
-        })
+        logInUsers(data.email, data.password)
+            .then(res => {
+                console.log(res.user);
+            }).catch(error => {
+                console.log(error.message);
+            })
     }
 
     return (
@@ -88,8 +89,12 @@ const LogIn = () => {
                         LogIn
                     </button>
 
+
                 </fieldset>
             </form>
+            <div>
+                <GoogleLogin></GoogleLogin>
+            </div>
             {/* Bottom Text */}
             <p className="text-center text-sm text-gray-500 mt-6">
                 New to zapshift?
