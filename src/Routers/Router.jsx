@@ -7,10 +7,13 @@ import CoverPage from "../Pages/CoverPage/CoverPage";
 import Priching from "../Pages/Pricing/Priching";
 import Blog from "../Pages/Blog/Blog";
 import Contact from "../Pages/Contact/Contact";
+import Error404 from "../Pages/Error/Error404";
+import AllError from "../Pages/AllError/AllError";
 const router = createBrowserRouter([
     {
         path:'/',
         Component:RootLayout,
+        errorElement:<AllError></AllError>,
         children:[
             {index:true,Component:HomePage},
             {path:'aboutPage',Component:AboutPage},
@@ -19,7 +22,8 @@ const router = createBrowserRouter([
             {path:'aboutus',element:<AboutPage></AboutPage>},
             {path:'pricing',element:<Priching></Priching>},
             {path:'blog',element:<Blog></Blog>},
-            {path:'contact',element:<Contact></Contact>}
+            {path:'contact',element:<Contact></Contact>},
+            {path:'*',Component:Error404}
         ]
     }
 ])

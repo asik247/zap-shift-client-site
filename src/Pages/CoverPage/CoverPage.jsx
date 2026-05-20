@@ -1,64 +1,138 @@
 import React, { useRef } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css'
+import 'leaflet/dist/leaflet.css';
 import { useLoaderData } from 'react-router';
-import { DiSafari } from 'react-icons/di';
+import { FaSearchLocation } from 'react-icons/fa';
 
 const CoverPage = () => {
     const services = useLoaderData();
-    // console.log(services);
-    // const position = [51.505, -0.09]
+
     const position = [23.6850, 90.3563];
-    const mapRef = useRef(null)
-    const searchSubmit = e => {
+    const mapRef = useRef(null);
+
+    const searchSubmit = (e) => {
         e.preventDefault();
-        // console.log('search value',e.target.location.value);
-        const districk = services.find(center => center.district.toLowerCase().includes(e.target.location.value.toLowerCase()));
-        if (districk) {
-            const coodk = [districk.latitude, districk.longitude];
-            console.log(coodk);
-            mapRef.current.flyTo(coodk, 14)
+
+        const searchValue = e.target.location.value;
+
+        const district = services.find((center) =>
+            center.district
+                .toLowerCase()
+                .includes(searchValue.toLowerCase())
+        );
+
+        if (district) {
+            const coord = [
+                district.latitude,
+                district.longitude,
+            ];
+
+            mapRef.current.flyTo(coord, 13, {
+                animate: true,
+                duration: 2,
+            });
         }
-    }
+    };
+
     return (
-        <div>
-            <div>
+        <div className="w-11/12 mx-auto py-8 md:py-10">
 
+            {/* Heading */}
+            <div className="text-start mb-5 md:mb-6">
+
+                <h1 className="text-2xl sm:text-3xl md:text-4xl font-extrabold text-[#03373D] leading-tight">
+                   We are available in 64 districts
+                </h1>
+
+                <p className="text-gray-500 text-xs sm:text-sm md:text-base mt-2 max-w-xl md:max-w-2xl leading-relaxed">
+                    Search your district and explore our delivery coverage across Bangladesh.
+                </p>
             </div>
-            <div>
-                <form onSubmit={searchSubmit}>
-                    <label className="input">
-                        <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                            <g
-                                strokeLinejoin="round"
-                                strokeLinecap="round"
-                                strokeWidth="2.5"
-                                fill="none"
-                                stroke="currentColor"
-                            >
-                                <circle cx="11" cy="11" r="8"></circle>
-                                <path d="m21 21-4.3-4.3"></path>
-                            </g>
-                        </svg>
-                        <input type="search" name='location' className="grow" placeholder="Search" />
 
-                    </label>
+            {/* Search Section */}
+            <div className="max-w-3xl mb-5 md:mb-6">
+
+                <form
+                    onSubmit={searchSubmit}
+                    className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-white border border-gray-200 rounded-2xl p-2 shadow-sm"
+                >
+
+                    {/* Input */}
+                    <div className="relative flex-1">
+
+                        <FaSearchLocation className="absolute left-3 top-1/2 -translate-y-1/2 text-base text-gray-400" />
+
+                        <input
+                            type="search"
+                            name="location"
+                            placeholder="Search district..."
+                            className="w-full h-10 sm:h-11 bg-transparent rounded-xl pl-10 pr-3 text-sm outline-none"
+                        />
+                    </div>
+
+                    {/* Button */}
+                    <button
+                        type="submit"
+                        className="h-10 sm:h-11 px-5 rounded-xl bg-[#CAEB66] hover:bg-[#b8dd49] text-[#03373D] font-semibold text-sm transition-all duration-300 whitespace-nowrap"
+                    >
+                        Search
+                    </button>
                 </form>
+
+                {/* Bottom Text */}
+                <div className="mt-2 text-start">
+                    <p className="text-gray-500 text-[11px] sm:text-xs md:text-sm">
+                        We are available in almost every district in Bangladesh 🇧🇩
+                    </p>
+                </div>
             </div>
-            <div className='border w-full h-[800px]'>
-                <MapContainer ref={mapRef} center={position} zoom={8} scrollWheelZoom={false} className='h-[800px]'>
+
+            {/* Map */}
+            <div className="overflow-hidden rounded-2xl md:rounded-[28px] shadow-xl border border-gray-200">
+
+                <MapContainer
+                    ref={mapRef}
+                    center={position}
+                    zoom={8}
+                    scrollWheelZoom={false}
+                    className="h-[320px] sm:h-[420px] md:h-[550px] w-full z-0"
+                >
                     <TileLayer
-                        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                        attribution='&copy; OpenStreetMap contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                     />
+
                     {
-                        services.map((singleServic, index) =>
-                            <Marker key={index} position={[singleServic.latitude, singleServic.longitude]}>
+                        services.map((singleService, index) => (
+                            <Marker
+                                key={index}
+                                position={[
+                                    singleService.latitude,
+                                    singleService.longitude,
+                                ]}
+                            >
                                 <Popup>
-                                    <strong>{singleServic.district}</strong> <br /> Services Area:{singleServic.covered_area.join(' , ')}
+                                    <div className="space-y-2 min-w-[180px] sm:min-w-[200px]">
+
+                                        <h2 className="text-base sm:text-lg font-bold text-[#03373D]">
+                                            {singleService.district}
+                                        </h2>
+
+                                        <div className="w-10 sm:w-12 h-1 bg-[#CAEB66] rounded-full"></div>
+
+                                        <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                                            <span className="font-semibold">
+                                                Covered Areas:
+                                            </span>
+
+                                            <br />
+
+                                            {singleService.covered_area.join(', ')}
+                                        </p>
+                                    </div>
                                 </Popup>
                             </Marker>
-                        )
+                        ))
                     }
                 </MapContainer>
             </div>
