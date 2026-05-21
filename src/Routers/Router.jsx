@@ -13,6 +13,7 @@ import AuthLayout from "../Layouts/AuthLayout";
 import Registation from "../Pages/Auth/Registation";
 import LogIn from "../Pages/Auth/LogIn";
 import PrivateRoutes from "./PrivateRoutes";
+import CoverPage2 from "../Pages/CoverPage/CoverPage2";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -23,6 +24,7 @@ const router = createBrowserRouter([
             {path:'aboutPage',Component:AboutPage},
             {path:'services',element:<Services></Services>},
             {path:'coverage',element:<PrivateRoutes><CoverPage></CoverPage></PrivateRoutes>,loader:()=>fetch('/servicesHouse.json').then(res=>res.json())},
+            {path:'coverage2',Component:CoverPage2},
             {path:'aboutus',element:<AboutPage></AboutPage>},
             {path:'pricing',element:<Priching></Priching>},
             {path:'blog',element:<Blog></Blog>},
