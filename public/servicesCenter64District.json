@@ -1,0 +1,122 @@
+[
+  {
+    "id": 1,
+    "district": "Dhaka",
+    "city": "Dhaka",
+    "cover_area": ["Dhanmondi", "Gulshan", "Mirpur", "Uttara"],
+    "latitude": 23.8103,
+    "longitude": 90.4125,
+    "service_center": "Dhaka Central Hub",
+    "phone": "+8801700000001",
+    "status": "active",
+    "delivery_time": "24 Hours"
+  },
+  {
+    "id": 2,
+    "district": "Chattogram",
+    "city": "Chattogram",
+    "cover_area": ["Agrabad", "Pahartali", "Kotwali"],
+    "latitude": 22.3569,
+    "longitude": 91.7832,
+    "service_center": "Chattogram Express Center",
+    "phone": "+8801700000002",
+    "status": "active",
+    "delivery_time": "24-48 Hours"
+  },
+  {
+    "id": 3,
+    "district": "Rajshahi",
+    "city": "Rajshahi",
+    "cover_area": ["Boalia", "Motihar", "Rajpara"],
+    "latitude": 24.3745,
+    "longitude": 88.6042,
+    "service_center": "Rajshahi Service Point",
+    "phone": "+8801700000003",
+    "status": "active",
+    "delivery_time": "48 Hours"
+  },
+  {
+    "id": 4,
+    "district": "Khulna",
+    "city": "Khulna",
+    "cover_area": ["Sonadanga", "Khalishpur", "Daulatpur"],
+    "latitude": 22.8456,
+    "longitude": 89.5403,
+    "service_center": "Khulna Delivery Hub",
+    "phone": "+8801700000004",
+    "status": "active",
+    "delivery_time": "48 Hours"
+  },
+  {
+    "id": 5,
+    "district": "Barishal",
+    "city": "Barishal",
+    "cover_area": ["Sadar", "Nathullabad", "Rupatoli"],
+    "latitude": 22.701,
+    "longitude": 90.3535,
+    "service_center": "Barishal Courier Center",
+    "phone": "+8801700000005",
+    "status": "active",
+    "delivery_time": "48-72 Hours"
+  },
+  {
+    "id": 6,
+    "district": "Sylhet",
+    "city": "Sylhet",
+    "cover_area": ["Zindabazar", "Beanibazar", "Amberkhana"],
+    "latitude": 24.8949,
+    "longitude": 91.8687,
+    "service_center": "Sylhet Service Hub",
+    "phone": "+8801700000006",
+    "status": "active",
+    "delivery_time": "48 Hours"
+  },
+  {
+    "id": 7,
+    "district": "Rangpur",
+    "city": "Rangpur",
+    "cover_area": ["Sadar", "Gangachara", "Mithapukur"],
+    "latitude": 25.7439,
+    "longitude": 89.2752,
+    "service_center": "Rangpur Distribution Center",
+    "phone": "+8801700000007",
+    "status": "active",
+    "delivery_time": "72 Hours"
+  },
+  {
+    "id": 8,
+    "district": "Mymensingh",
+    "city": "Mymensingh",
+    "cover_area": ["Trishal", "Muktagacha", "Gafargaon"],
+    "latitude": 24.7471,
+    "longitude": 90.4203,
+    "service_center": "Mymensingh Hub",
+    "phone": "+8801700000008",
+    "status": "active",
+    "delivery_time": "48 Hours"
+  },
+  {
+    "id": 9,
+    "district": "Cumilla",
+    "city": "Cumilla",
+    "cover_area": ["Kotbari", "Daudkandi", "Burichang"],
+    "latitude": 23.4607,
+    "longitude": 91.1809,
+    "service_center": "Cumilla Service Center",
+    "phone": "+8801700000009",
+    "status": "active",
+    "delivery_time": "48 Hours"
+  },
+  {
+    "id": 10,
+    "district": "Cox's Bazar",
+    "city": "Cox's Bazar",
+    "cover_area": ["Teknaf", "Ukhia", "Kolatoli"],
+    "latitude": 21.4272,
+    "longitude": 92.0058,
+    "service_center": "Cox's Bazar Delivery Point",
+    "phone": "+8801700000010",
+    "status": "active",
+    "delivery_time": "72 Hours"
+  }
+]

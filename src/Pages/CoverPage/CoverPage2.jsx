@@ -1,8 +1,16 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 
 const CoverPage2 = () => {
     const position = [23.6850, 90.3563]
+    //?useEffect;
+    useEffect(()=>{
+        fetch('/servicesCenter64District.json')
+        .then(res=>res.json())
+        .then(data=>{
+            console.log('64 district in db data',data);
+        })
+    },[])
     return (
         <div>
             <p>coverPage 2 hrere</p>
