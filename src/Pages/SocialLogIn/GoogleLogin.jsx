@@ -5,6 +5,7 @@ import { useLocation, useNavigate } from 'react-router';
 const GoogleLogin = () => {
     const {googleLogIn} = useAuth()
     const location = useLocation();
+    // console.log('in the social logn',location);
     const navegate = useNavigate()
     const handleGoogleLogIn = ()=>{
         googleLogIn()

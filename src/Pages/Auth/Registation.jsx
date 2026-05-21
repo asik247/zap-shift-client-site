@@ -1,39 +1,62 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../Hooks/useAuth';
 import axios from 'axios';
 
 const Registation = () => {
     //!userinfo get authProvider;
-    const { registerUsers,updateUserProfile } = useAuth()
+    const { registerUsers, updateUserProfile } = useAuth()
     const { register, handleSubmit, formState: { errors } } = useForm()
+    const location = useLocation();
+    const navegate = useNavigate();
+    console.log('in the location for regiter',location);
     const handleRegistater = (data) => {
-        console.log('resigatio data;', data.photo[0]);
+        // console.log('resigatio data;', data.photo[0]);
         //Todo:profileImg;
         const profileImg = data.photo[0];
         registerUsers(data.email, data.password)
             .then(res => {
                 console.log(res.user);
-                //Todo: store the img and get the photo url;
+                navegate(location.state || '/')
+                //Todo: store the img and get the imgaebb url;
                 const formData = new FormData();
-                formData.append('image',profileImg);
-                const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imagebb_key}`
-                
-                axios.post(image_API_URL,formData)
-                .then(res=>{
-                    // console.log('after url get:',res.data.data.url);
-                    const userProfile = {
-                        displayName:data.name,
-                        photoURL:res.data.data.url
-                    }
-                    updateUserProfile(userProfile)
-                    .then(()=>{
-                        console.log('successfully update profile');
-                    }).catch(error=>{
-                        console.log(error);
+                formData.append('image', profileImg);
+                const image_api_url = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imagebb_key}`
+                // console.log('get image url', image_api_url);
+                // imgagebb url and get my photo url;
+                axios.post(image_api_url, formData)
+                    .then(res => {
+                        // console.log('my current img url',res.data.data);
+                        const userProfile = {
+                            displayName: data.name,
+                            photoURL: res.data.data.url
+                        }
+                        console.log(userProfile);
+                        updateUserProfile(userProfile)
+                        .then(()=>{
+
+                        }).catch(error=>{
+                            console.log(error);
+                        })
                     })
-                })
+                // const formData = new FormData();
+                // formData.append('image',profileImg);
+                // const image_API_URL = `https://api.imgbb.com/1/upload?key=${import.meta.env.VITE_imagebb_key}`
+
+                // axios.post(image_API_URL,formData)
+                // .then(res=>{
+                //     const userProfile = {
+                //         displayName:data.name,
+                //         photoURL:res.data.data.url
+                //     }
+                //     updateUserProfile(userProfile)
+                //     .then(()=>{
+                //         console.log('successfully update profile');
+                //     }).catch(error=>{
+                //         console.log(error);
+                //     })
+                // })
             }).catch(error => {
                 console.log(error.message);
             })
@@ -71,7 +94,7 @@ const Registation = () => {
 
                         {errors.name?.type === 'required' && (
                             <p className='text-red-500 text-sm mt-2'>
-                                Email is required
+                                Name is required
                             </p>
                         )}
                     </div>
@@ -89,7 +112,7 @@ const Registation = () => {
 
                         {errors.photo?.type === 'required' && (
                             <p className='text-red-500 text-sm mt-2'>
-                                Email is required
+                                photo is requre
                             </p>
                         )}
                     </div>
@@ -152,7 +175,7 @@ const Registation = () => {
             {/* Bottom Text */}
             <p className="text-center text-sm text-gray-500 mt-6">
                 Already have an account?
-                <Link to={'/login'} className="text-black font-semibold ml-1 cursor-pointer hover:underline">
+                <Link state={location.state} to={'/login'} className="text-black font-semibold ml-1 cursor-pointer hover:underline">
                     Login
                 </Link>
             </p>

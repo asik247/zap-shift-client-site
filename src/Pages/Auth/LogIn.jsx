@@ -1,12 +1,13 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router';
+import { Link, useLocation } from 'react-router';
 import useAuth from '../../Hooks/useAuth';
 import GoogleLogin from '../SocialLogIn/GoogleLogin';
 
 const LogIn = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const { logInUsers } = useAuth();
+    const location = useLocation()
     const handleLoginSubmiter = (data) => {
         console.log(data);
         logInUsers(data.email, data.password)
@@ -98,7 +99,7 @@ const LogIn = () => {
             {/* Bottom Text */}
             <p className="text-center text-sm text-gray-500 mt-6">
                 New to zapshift?
-                <Link to={'/registation'} className="text-black font-semibold ml-1 cursor-pointer hover:underline">
+                <Link  to={'/registation'} state={location.state} className="text-black font-semibold ml-1 cursor-pointer hover:underline">
                     Register
                 </Link>
             </p>

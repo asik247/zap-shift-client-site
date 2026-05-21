@@ -10,6 +10,7 @@ const Navbar = () => {
     const links = <>
         <li><NavLink to={'/services'}>Services</NavLink></li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
+        <li><NavLink to={'/percelSend'}>Send A Percel</NavLink></li>
         <li><NavLink to={'/aboutus'}>About Us</NavLink></li>
         <li><NavLink to={'/pricing'}>Pricing</NavLink></li>
         <li><NavLink to={'/blog'}>Blog</NavLink></li>

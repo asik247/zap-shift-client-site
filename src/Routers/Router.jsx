@@ -14,6 +14,7 @@ import Registation from "../Pages/Auth/Registation";
 import LogIn from "../Pages/Auth/LogIn";
 import PrivateRoutes from "./PrivateRoutes";
 import CoverPage2 from "../Pages/CoverPage/CoverPage2";
+import SendAPercel from "../Pages/PercelSend/SendAPercel";
 const router = createBrowserRouter([
     {
         path:'/',
@@ -25,6 +26,7 @@ const router = createBrowserRouter([
             {path:'services',element:<Services></Services>},
             {path:'coverage',element:<PrivateRoutes><CoverPage></CoverPage></PrivateRoutes>,loader:()=>fetch('/servicesHouse.json').then(res=>res.json())},
             {path:'coverage2',Component:CoverPage2},
+            {path:'percelSend',element:<PrivateRoutes><SendAPercel></SendAPercel></PrivateRoutes>},
             {path:'aboutus',element:<AboutPage></AboutPage>},
             {path:'pricing',element:<Priching></Priching>},
             {path:'blog',element:<Blog></Blog>},
