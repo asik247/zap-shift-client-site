@@ -1,9 +1,24 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useLoaderData } from 'react-router';
 // import { data } from 'react-router';
 
 const SendAPercel = () => {
-    const { register, handleSubmit } = useForm();
+      // ! react hook form;
+    const { register,watch, handleSubmit } = useForm();
+    const servicesCenters = useLoaderData();
+    const allregions = servicesCenters.map(r => r.region)
+    const regions = [...new Set(allregions)]
+    // console.log(regions);
+    //! watch region;
+    const senderRegion = watch('senderRegion')
+    //Todo:function for regison---all-district;
+    const districtsByRegion = (region)=>{
+        const regionDistricts = servicesCenters.filter(c=>c.region===region);
+        const disticts = regionDistricts.map(d=>d.district);
+        return disticts;
+    }
+    //?form submiter handler;
     const handleFormSubmiter = (data) => {
         console.log(data);
     }
@@ -78,7 +93,31 @@ const SendAPercel = () => {
                                         placeholder="sender name"
                                     />
                                 </div>
+                                {/* select region */}
+                                <fieldset class="$$fieldset space-y-5">
+                                    <legend class="$$fieldset-legend">Sender Regions</legend>
+                                    <select {...register(senderRegion)} defaultValue="Pick a browser " class="$$select">
+                                        <option disabled={true}>Pick a region</option>
+                                     
+                                       {
+                                        regions.map(r=><option>{r}</option>)
+                                       }
+                                    </select>
+                                </fieldset>
 
+                                {/* District here */}
+                                {/* <div>
+                                    <label className="text-gray-700 font-semibold mb-2 block">
+                                        Sender Destrict
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        {...register('senderDistrict')}
+                                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
+                                        placeholder="sender district"
+                                    />
+                                </div> */}
                                 <div>
                                     <label className="text-gray-700 font-semibold mb-2 block">
                                         Sender Address
@@ -91,18 +130,7 @@ const SendAPercel = () => {
                                         placeholder="sender address"
                                     />
                                 </div>
-                                <div>
-                                    <label className="text-gray-700 font-semibold mb-2 block">
-                                        Sender Destrict
-                                    </label>
 
-                                    <input
-                                        type="text"
-                                        {...register('senderDistrict')}
-                                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
-                                        placeholder="sender district"
-                                    />
-                                </div>
                             </div>
                         </div>
                     </fieldset>

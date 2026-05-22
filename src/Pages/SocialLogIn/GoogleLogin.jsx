@@ -10,7 +10,7 @@ const GoogleLogin = () => {
     const handleGoogleLogIn = ()=>{
         googleLogIn()
         .then((res)=>{
-            console.log(res.user);
+            // console.log(res.user);
             navegate(location.state||"/")
         }).catch(error=>{
             console.log(error);
