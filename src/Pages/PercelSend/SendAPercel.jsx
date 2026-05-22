@@ -96,11 +96,22 @@ const SendAPercel = () => {
                                 {/* select region */}
                                 <fieldset class="$$fieldset space-y-5">
                                     <legend class="$$fieldset-legend">Sender Regions</legend>
-                                    <select {...register(senderRegion)} defaultValue="Pick a browser " class="$$select">
+                                    <select {...register('senderRegion')} defaultValue="Pick a browser " class="$$select">
                                         <option disabled={true}>Pick a region</option>
                                      
                                        {
-                                        regions.map(r=><option>{r}</option>)
+                                        regions.map(r=><option value={r}>{r}</option>)
+                                       }
+                                    </select>
+                                </fieldset>
+                                {/* receiver district */}
+                                <fieldset class="$$fieldset space-y-5">
+                                    <legend class="$$fieldset-legend">Sender district</legend>
+                                    <select {...register('senderDistrict')} defaultValue="Pick a browser " class="$$select">
+                                        <option disabled={true}>Pick a deistrict</option>
+                                     
+                                       {
+                                        districtsByRegion(senderRegion).map(r=><option value={r}>{r}</option>)
                                        }
                                     </select>
                                 </fieldset>
