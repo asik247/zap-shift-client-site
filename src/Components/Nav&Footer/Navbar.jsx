@@ -6,7 +6,7 @@ import useAuth from '../../Hooks/useAuth';
 const Navbar = () => {
     //?user get AuthProvider;
     const {user,logOutUsers} = useAuth();
-    console.log('currentUser',user);
+    // console.log('currentUser',user);
     const links = <>
         <li><NavLink to={'/services'}>Services</NavLink></li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
