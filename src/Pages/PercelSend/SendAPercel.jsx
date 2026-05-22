@@ -96,6 +96,7 @@ const SendAPercel = () => {
                                 {/* select region */}
                                 <fieldset class="$$fieldset space-y-5">
                                     <legend class="$$fieldset-legend">Sender Regions</legend>
+                                    <legend class="$$fieldset-legend">Sender Regions</legend>
                                     <select {...register(senderRegion)} defaultValue="Pick a browser " class="$$select">
                                         <option disabled={true}>Pick a region</option>
                                      
