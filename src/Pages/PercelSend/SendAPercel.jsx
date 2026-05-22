@@ -73,6 +73,7 @@ const SendAPercel = () => {
 
                                     <input
                                         type="text"
+                                        {...register('senderName')}
                                         className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                         placeholder="sender name"
                                     />
@@ -85,6 +86,7 @@ const SendAPercel = () => {
 
                                     <input
                                         type="text"
+                                        {...register('senderAddress')}
                                         className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                         placeholder="sender address"
                                     />
@@ -96,6 +98,7 @@ const SendAPercel = () => {
 
                                     <input
                                         type="text"
+                                        {...register('senderDistrict')}
                                         className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                         placeholder="sender district"
                                     />
@@ -118,6 +121,7 @@ const SendAPercel = () => {
 
                                     <input
                                         type="text"
+                                        {...register('receiverName')}
                                         className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                         placeholder="receiver name"
                                     />
@@ -130,6 +134,7 @@ const SendAPercel = () => {
 
                                     <input
                                         type="text"
+                                        {...register('receiverAddress')}
                                         className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                         placeholder="receiver address"
                                     />
@@ -141,6 +146,7 @@ const SendAPercel = () => {
 
                                     <input
                                         type="text"
+                                        {...register('receiverDistrict')}
                                         className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                         placeholder="receiver district"
                                     />
