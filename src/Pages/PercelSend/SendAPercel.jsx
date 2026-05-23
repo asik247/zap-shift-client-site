@@ -1,8 +1,17 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
+import { useLoaderData } from 'react-router';
 const SendAPercel = () => {
+    //Todo get fetch all serverCenter datas;
+    const servicesCenterDatas = useLoaderData();
+    const dublicateRegions = servicesCenterDatas.map(c => c.region);
+    const regions = [...new Set(dublicateRegions)];
+  
     // ! react hook form;
-    const { register, handleSubmit } = useForm()
+    const { register,watch, handleSubmit } = useForm()
+    //Todo senderREgions;
+    const senderRegion = watch('senderRegion');
+    // console.log('senderRegions in one',senderRegion);
     //?form submiter handler;
     const handleFormSubmiter = (data) => {
         console.log(data);
@@ -80,13 +89,13 @@ const SendAPercel = () => {
                                 {/* select region */}
                                 <fieldset class="$$fieldset">
                                     <legend class="$$fieldset-legend">Sender Region</legend>
-                                    <select defaultValue="Pick a region" class="$$select">
-                                        <option disabled={true}>Pick a region</option>
-                                        <option>Chrome</option>
-                                        <option>FireFox</option>
-                                        <option>Safari</option>
+                                    <select {...register('senderRegion')} defaultValue="Pick a region" class="$$select">
+                                       {
+                                        regions.map((r,i)=><option key={i}>{r}</option>)
+                                       }
+                                        
                                     </select>
-                                   
+
                                 </fieldset>
                                 {/* sender district */}
                                 {/* sender address field */}
