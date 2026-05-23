@@ -1,23 +1,8 @@
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
-// import { data } from 'react-router';
-
 const SendAPercel = () => {
-      // ! react hook form;
-    const { register,watch, handleSubmit } = useForm();
-    const servicesCenters = useLoaderData();
-    const allregions = servicesCenters.map(r => r.region)
-    const regions = [...new Set(allregions)]
-    // console.log(regions);
-    //! watch region;
-    const senderRegion = watch('senderRegion')
-    //Todo:function for regison---all-district;
-    const districtsByRegion = (region)=>{
-        const regionDistricts = servicesCenters.filter(c=>c.region===region);
-        const disticts = regionDistricts.map(d=>d.district);
-        return disticts;
-    }
+    // ! react hook form;
+    const { register, handleSubmit } = useForm()
     //?form submiter handler;
     const handleFormSubmiter = (data) => {
         console.log(data);
@@ -79,13 +64,11 @@ const SendAPercel = () => {
                             <h3 className="text-2xl font-bold text-gray-800 mb-6">
                                 Sender Details
                             </h3>
-
                             <div className="space-y-5">
                                 <div>
                                     <label className="text-gray-700 font-semibold mb-2 block">
                                         Sender Name
                                     </label>
-
                                     <input
                                         type="text"
                                         {...register('senderName')}
@@ -94,41 +77,7 @@ const SendAPercel = () => {
                                     />
                                 </div>
                                 {/* select region */}
-                                <fieldset class="$$fieldset space-y-5">
-                                    <legend class="$$fieldset-legend">Sender Regions</legend>
-                                    <select {...register('senderRegion')} defaultValue="Pick a browser " class="$$select">
-                                        <option disabled={true}>Pick a region</option>
-                                     
-                                       {
-                                        regions.map(r=><option value={r}>{r}</option>)
-                                       }
-                                    </select>
-                                </fieldset>
-                                {/* receiver district */}
-                                <fieldset class="$$fieldset space-y-5">
-                                    <legend class="$$fieldset-legend">Sender district</legend>
-                                    <select {...register('senderDistrict')} defaultValue="Pick a browser " class="$$select">
-                                        <option disabled={true}>Pick a deistrict</option>
-                                     
-                                       {
-                                        districtsByRegion(senderRegion).map(r=><option value={r}>{r}</option>)
-                                       }
-                                    </select>
-                                </fieldset>
-
-                                {/* District here */}
-                                {/* <div>
-                                    <label className="text-gray-700 font-semibold mb-2 block">
-                                        Sender Destrict
-                                    </label>
-
-                                    <input
-                                        type="text"
-                                        {...register('senderDistrict')}
-                                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
-                                        placeholder="sender district"
-                                    />
-                                </div> */}
+                                {/* sender district */}
                                 <div>
                                     <label className="text-gray-700 font-semibold mb-2 block">
                                         Sender Address
@@ -145,7 +94,7 @@ const SendAPercel = () => {
                             </div>
                         </div>
                     </fieldset>
-                    {/* Recever details */}
+                    {/* receiver details */}
                     <fieldset >
                         <div>
                             <h3 className="text-2xl font-bold text-gray-800 mb-6">
@@ -153,6 +102,7 @@ const SendAPercel = () => {
                             </h3>
 
                             <div className="space-y-5">
+                                {/* Receiver name */}
                                 <div>
                                     <label className="text-gray-700 font-semibold mb-2 block">
                                         Receiver Name
@@ -165,12 +115,14 @@ const SendAPercel = () => {
                                         placeholder="receiver name"
                                     />
                                 </div>
+                                {/* Receiver REason */}
 
+                                {/* Receiver districts */}
+                                {/* Receiver Address */}
                                 <div>
                                     <label className="text-gray-700 font-semibold mb-2 block">
                                         Receiver Address
                                     </label>
-
                                     <input
                                         type="text"
                                         {...register('receiverAddress')}
@@ -178,18 +130,7 @@ const SendAPercel = () => {
                                         placeholder="receiver address"
                                     />
                                 </div>
-                                <div>
-                                    <label className="text-gray-700 font-semibold mb-2 block">
-                                        Receiver Destrict
-                                    </label>
 
-                                    <input
-                                        type="text"
-                                        {...register('receiverDistrict')}
-                                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
-                                        placeholder="receiver district"
-                                    />
-                                </div>
                             </div>
                         </div>
                     </fieldset>
