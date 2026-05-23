@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from 'react-hook-form';
+import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 const SendAPercel = () => {
      //Todo get fetch all serverCenter datas;
@@ -7,10 +7,11 @@ const SendAPercel = () => {
     const dublicateRegions = servicesCenterDatas.map(c => c.region);
     const regions = [...new Set(dublicateRegions)];
     // ! react hook form;
-    const { register, watch, handleSubmit } = useForm()
+    const { register, control, handleSubmit } = useForm()
     //Todo senderREgions;
-    const senderRegion = watch('senderRegion');
-    const receiverRegion = watch('receiverRegion');
+    const senderRegion = useWatch({control,name:'senderRegion'});
+    // const receiverRegion = watch('receiverRegion');
+    const receiverRegion = useWatch({control,name:'receiverRegion'})
     //Todo:mechine for 8 regions --- all districts;
     const regionsByDistricts = (region)=>{
         const centerDatas = servicesCenterDatas.filter(c=>c.region===region);
@@ -20,6 +21,8 @@ const SendAPercel = () => {
     //?form submiter handler;
     const handleFormSubmiter = (data) => {
         console.log(data);
+        const sameDistrict = data.senderDestrict === data.receiverDistrict;
+        console.log(sameDistrict);
     }
     return (
         <div className="mt-15">
