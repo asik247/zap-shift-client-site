@@ -2,16 +2,21 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 const SendAPercel = () => {
-    //Todo get fetch all serverCenter datas;
+     //Todo get fetch all serverCenter datas;
     const servicesCenterDatas = useLoaderData();
     const dublicateRegions = servicesCenterDatas.map(c => c.region);
     const regions = [...new Set(dublicateRegions)];
-  
     // ! react hook form;
-    const { register,watch, handleSubmit } = useForm()
+    const { register, watch, handleSubmit } = useForm()
     //Todo senderREgions;
     const senderRegion = watch('senderRegion');
-    // console.log('senderRegions in one',senderRegion);
+    const receiverRegion = watch('receiverRegion');
+    //Todo:mechine for 8 regions --- all districts;
+    const regionsByDistricts = (region)=>{
+        const centerDatas = servicesCenterDatas.filter(c=>c.region===region);
+        const allDistrictforRegion = centerDatas.map(d=>d.district);
+        return allDistrictforRegion
+    }
     //?form submiter handler;
     const handleFormSubmiter = (data) => {
         console.log(data);
@@ -90,10 +95,21 @@ const SendAPercel = () => {
                                 <fieldset class="$$fieldset">
                                     <legend class="$$fieldset-legend">Sender Region</legend>
                                     <select {...register('senderRegion')} defaultValue="Pick a region" class="$$select">
-                                       {
-                                        regions.map((r,i)=><option key={i}>{r}</option>)
-                                       }
-                                        
+                                        {
+                                            regions.map((r, i) => <option value={r} key={i}>{r}</option>)
+                                        }
+
+                                    </select>
+
+                                </fieldset>
+                                {/* select district */}
+                                <fieldset class="$$fieldset">
+                                    <legend class="$$fieldset-legend">Sender Destrict</legend>
+                                    <select {...register('senderDestrict')} defaultValue="Pick a district" class="$$select">
+                                        {
+                                            regionsByDistricts(senderRegion).map((r, i) => <option value={r} key={i}>{r}</option>)
+                                        }
+
                                     </select>
 
                                 </fieldset>
@@ -121,7 +137,6 @@ const SendAPercel = () => {
                             <h3 className="text-2xl font-bold text-gray-800 mb-6">
                                 Recever Details
                             </h3>
-
                             <div className="space-y-5">
                                 {/* Receiver name */}
                                 <div>
@@ -137,7 +152,28 @@ const SendAPercel = () => {
                                     />
                                 </div>
                                 {/* Receiver REason */}
+                                 {/* select region */}
+                                <fieldset class="$$fieldset">
+                                    <legend class="$$fieldset-legend">Receiver Region</legend>
+                                    <select {...register('receiverRegion')} defaultValue="Pick a region" class="$$select">
+                                        {
+                                            regions.map((r, i) => <option value={r} key={i}>{r}</option>)
+                                        }
 
+                                    </select>
+
+                                </fieldset>
+                                {/* sellect districts */}
+                                <fieldset class="$$fieldset">
+                                    <legend class="$$fieldset-legend">Receiver District</legend>
+                                    <select {...register('receiverDistrict')} defaultValue="Pick a district" class="$$select">
+                                        {
+                                            regionsByDistricts(receiverRegion).map((r, i) => <option value={r} key={i}>{r}</option>)
+                                        }
+
+                                    </select>
+
+                                </fieldset>
                                 {/* Receiver districts */}
                                 {/* Receiver Address */}
                                 <div>
