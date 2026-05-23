@@ -65,6 +65,7 @@ const SendAPercel = () => {
                                 Sender Details
                             </h3>
                             <div className="space-y-5">
+                                {/* sender name field */}
                                 <div>
                                     <label className="text-gray-700 font-semibold mb-2 block">
                                         Sender Name
@@ -77,7 +78,18 @@ const SendAPercel = () => {
                                     />
                                 </div>
                                 {/* select region */}
+                                <fieldset class="$$fieldset">
+                                    <legend class="$$fieldset-legend">Sender Region</legend>
+                                    <select defaultValue="Pick a region" class="$$select">
+                                        <option disabled={true}>Pick a region</option>
+                                        <option>Chrome</option>
+                                        <option>FireFox</option>
+                                        <option>Safari</option>
+                                    </select>
+                                   
+                                </fieldset>
                                 {/* sender district */}
+                                {/* sender address field */}
                                 <div>
                                     <label className="text-gray-700 font-semibold mb-2 block">
                                         Sender Address
