@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import Swal from 'sweetalert2';
+import useInstance from '../../Hooks/useInstance';
+import useAuth from '../../Hooks/useAuth';
 const SendAPercel = () => {
+     //Todo useInstance hook;
+    const instance = useInstance();
+     //?get curentuser;
+    const { user } = useAuth();
+    //Todo get db data in mypercel;
+    useEffect(()=>{
+        instance(`/percelDatas?email=${user?.email}`)
+        .then(res=>{
+            // console.log('all percleinfo',res.data);
+        })
+    },[instance,user])
+   
     //Todo get fetch all serverCenter datas;
     const servicesCenterDatas = useLoaderData();
     const dublicateRegions = servicesCenterDatas.map(c => c.region);
@@ -19,6 +33,7 @@ const SendAPercel = () => {
         const allDistrictforRegion = centerDatas.map(d => d.district);
         return allDistrictforRegion
     }
+   
     //?form submiter handler;
     const handleFormSubmiter = (data) => {
         console.log(data);
@@ -43,19 +58,20 @@ const SendAPercel = () => {
         console.log('cost', cost);
         //?Confarmation message;
         Swal.fire({
-            title: "Are you sure?",
-            text:`your cost ${cost} taka`,
+            title: "Agree to pay?",
+            text: `your cost ${cost} taka`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Agree"
         }).then((result) => {
-            if (result.isConfirmed) Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-            });
+            if (result.isConfirmed){
+                    instance.post('/percelDatas', data)
+                    .then(res => {
+                        // console.log(res.data);
+                    })
+                }
         });
 
     }
@@ -126,8 +142,22 @@ const SendAPercel = () => {
                                     <input
                                         type="text"
                                         {...register('senderName')}
+                                        defaultValue={user?.displayName}
                                         className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                         placeholder="sender name"
+                                    />
+                                </div>
+                                {/* sender email field */}
+                                <div>
+                                    <label className="text-gray-700 font-semibold mb-2 block">
+                                        Sender Email
+                                    </label>
+                                    <input
+                                        type="text"
+                                        {...register('senderEmail')}
+                                        defaultValue={user?.email}
+                                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
+                                        placeholder="sender email"
                                     />
                                 </div>
                                 {/* select region */}
