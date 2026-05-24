@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useAuth from '../../../Hooks/useAuth';
-import useInstance from '../../../Hooks/useInstance'; import { data } from 'react-router';
+import useInstance from '../../../Hooks/useInstance'; import { data, Link } from 'react-router';
 import { MdBrowserUpdated, MdStreetview } from 'react-icons/md';
 import { IoTrashBin } from 'react-icons/io5';
 import Swal from 'sweetalert2';
@@ -64,7 +64,8 @@ const MyPercels = () => {
                             <th>SL.NO</th>
                             <th>Name</th>
                             <th>Cost</th>
-                            <th>Payment Status</th>
+                            <th>Payment</th>
+                            <th>Delivery Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -74,7 +75,15 @@ const MyPercels = () => {
                                 <th>{index + 1}</th>
                                 <td>{percel.percelName}</td>
                                 <td>{percel.cost}</td>
-                                <td>Blue</td>
+                                <td>
+                                    {
+                                        percel.paymentStatus === 'paid' ?<span className='text-green-500'>Paid</span> :
+                                        <Link to={`/dashboard/payment/${percel._id}`}>
+                                        <button className='btn btn-ghost btn-sm'>Pay</button>
+                                        </Link>
+                                    }
+                                </td>
+                                <td>{percel.deliveryStatus}</td>
                                 <td>
                                     <button className='btn btn-square'>
                                         <MdBrowserUpdated />

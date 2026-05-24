@@ -17,6 +17,7 @@ import CoverPage2 from "../Pages/CoverPage/CoverPage2";
 import SendAPercel from "../Pages/PercelSend/SendAPercel";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import MyPercels from "../Pages/DashBoard/MyPercels/MyPercels";
+import Payment from "../Pages/DashBoard/Payment/Payment";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -52,7 +53,11 @@ const router = createBrowserRouter([
         path:'dashboard',
         element:<PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
         children:[
-            {path:'mypercels',element:<PrivateRoutes><MyPercels></MyPercels></PrivateRoutes>}
+            {path:'mypercels',element:<PrivateRoutes><MyPercels></MyPercels></PrivateRoutes>},
+            {
+                path:'payment/:paymentId',
+                Component:Payment
+            }
         ]
     }
 ])
