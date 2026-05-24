@@ -14,12 +14,25 @@ const Payment = () => {
         }
         
     })
+    const handlePaymetn =async ()=>{
+        const paymentInfo = {
+            cost:percles.cost,
+            percleId:percles._id,
+            senderEmail:percles.senderEmail,
+            percelName:percles.percelName
+            // name:percels.percelName
+        }
+        const res = await instance.post('/create-checkout-session',paymentInfo)
+        console.log(res.data);
+        window.location.href = res.data.url;
+    }
     if(isLoading){
         return <p>Loading....</p>
     }
     return (
         <div>
-            <h2>please paymetn</h2>
+            <h2>please pay ${percles.cost} for : {percles.percelName}</h2>
+            <button onClick={handlePaymetn} className='btn btn-ghost'>Pay</button>
             {console.log('id percles',percles)}
         </div>
     );

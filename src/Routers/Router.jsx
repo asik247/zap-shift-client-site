@@ -18,6 +18,8 @@ import SendAPercel from "../Pages/PercelSend/SendAPercel";
 import DashboardLayout from "../Layouts/DashboardLayout";
 import MyPercels from "../Pages/DashBoard/MyPercels/MyPercels";
 import Payment from "../Pages/DashBoard/Payment/Payment";
+import PaymentSuccess from "../Pages/DashBoard/Payment/PaymentSuccess";
+import PaymentCanclled from "../Pages/DashBoard/Payment/PaymentCanclled";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
             {
                 path:'payment/:paymentId',
                 Component:Payment
+            },
+            {
+                path:'payment-success',
+                Component:PaymentSuccess
+            },
+            {
+                path:'payment-cancelled',
+                Component:PaymentCanclled
             }
         ]
     }
