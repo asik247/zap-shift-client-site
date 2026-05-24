@@ -3,18 +3,13 @@ import { MapContainer, Marker, Popup, TileLayer } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import { useLoaderData } from 'react-router';
 import { FaSearchLocation } from 'react-icons/fa';
-
 const CoverPage = () => {
     const services = useLoaderData();
-
     const position = [23.6850, 90.3563];
     const mapRef = useRef(null);
-
     const searchSubmit = (e) => {
         e.preventDefault();
-
         const searchValue = e.target.location.value;
-
         const district = services.find((center) =>
             center.district
                 .toLowerCase()

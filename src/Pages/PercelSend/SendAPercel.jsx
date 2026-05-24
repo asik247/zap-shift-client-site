@@ -56,6 +56,7 @@ const SendAPercel = () => {
             }
         }
         console.log('cost', cost);
+        data.cost = cost;
         //?Confarmation message;
         Swal.fire({
             title: "Agree to pay?",
@@ -220,6 +221,18 @@ const SendAPercel = () => {
                                         {...register('receiverName')}
                                         className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                         placeholder="receiver name"
+                                    />
+                                </div>
+                                  {/* sender email field */}
+                                <div>
+                                    <label className="text-gray-700 font-semibold mb-2 block">
+                                        Receiver Email
+                                    </label>
+                                    <input
+                                        type="text"
+                                        {...register('receiverEmail')}
+                                        className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
+                                        placeholder="receiver email"
                                     />
                                 </div>
                                 {/* Receiver REason */}
