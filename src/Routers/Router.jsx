@@ -15,6 +15,8 @@ import LogIn from "../Pages/Auth/LogIn";
 import PrivateRoutes from "./PrivateRoutes";
 import CoverPage2 from "../Pages/CoverPage/CoverPage2";
 import SendAPercel from "../Pages/PercelSend/SendAPercel";
+import DashboardLayout from "../Layouts/DashboardLayout";
+import MyPercels from "../Pages/DashBoard/MyPercels/MyPercels";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -44,6 +46,13 @@ const router = createBrowserRouter([
         children: [
             { path: 'registation', element: <Registation></Registation> },
             { path: 'login', element: <LogIn></LogIn> }
+        ]
+    },
+    {
+        path:'dashboard',
+        element:<PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
+        children:[
+            {path:'mypercels',element:<PrivateRoutes><MyPercels></MyPercels></PrivateRoutes>}
         ]
     }
 ])
