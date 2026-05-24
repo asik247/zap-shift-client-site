@@ -5,25 +5,31 @@ import useAuth from '../../Hooks/useAuth';
 
 const Navbar = () => {
     //?user get AuthProvider;
-    const {user,logOutUsers} = useAuth();
+    const { user, logOutUsers } = useAuth();
     // console.log('currentUser',user);
     const links = <>
         <li><NavLink to={'/services'}>Services</NavLink></li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
         <li><NavLink to={'/percelSend'}>Send A Percel</NavLink></li>
+        {
+            user && <>
+                <li><NavLink to={'/dashboard/mypercels'}>My Percels</NavLink></li>
+
+            </>
+        }
         <li><NavLink to={'/aboutus'}>About Us</NavLink></li>
         <li><NavLink to={'/pricing'}>Pricing</NavLink></li>
         <li><NavLink to={'/blog'}>Blog</NavLink></li>
         <li><NavLink to={'/contact'}>Contace</NavLink></li>
     </>
     //!LogOut code here;
-    const handleLogOut = ()=>{
+    const handleLogOut = () => {
         logOutUsers()
-        .then(()=>{
+            .then(() => {
 
-        }).catch(error=>{
-            console.log(error);
-        })
+            }).catch(error => {
+                console.log(error);
+            })
     }
     return (
         <div className="navbar bg-base-100 shadow-sm">
@@ -38,8 +44,8 @@ const Navbar = () => {
                         {links}
                     </ul>
                 </div>
-               {/* logo */}
-               <Logo></Logo>
+                {/* logo */}
+                <Logo></Logo>
             </div>
             <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
@@ -49,9 +55,9 @@ const Navbar = () => {
             <div className="navbar-end">
                 {/* cheack user in then show logOut user out show singIn */}
                 {
-                    user ? <a onClick={handleLogOut} className="btn btn-accent">Log Out</a>:<Link className='btn btn-primary' to={'/login'}>Sign In</Link>
+                    user ? <a onClick={handleLogOut} className="btn btn-accent">Log Out</a> : <Link className='btn btn-primary' to={'/login'}>Sign In</Link>
                 }
-                
+
             </div>
         </div>
     );
