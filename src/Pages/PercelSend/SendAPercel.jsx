@@ -1,6 +1,7 @@
 import React from 'react';
 import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
+import Swal from 'sweetalert2';
 const SendAPercel = () => {
     //Todo get fetch all serverCenter datas;
     const servicesCenterDatas = useLoaderData();
@@ -21,10 +22,44 @@ const SendAPercel = () => {
     //?form submiter handler;
     const handleFormSubmiter = (data) => {
         console.log(data);
-        const sameDistrict = data.senderDestrict === data.receiverDistrict;
-        const percelType = data.percelType
-        console.log(sameDistrict, percelType);
+        const isDocument = data.percelType === 'document';
+        const isSameDistrict = data.senderDestrict === data.receiverDistrict;
+        const percelWeight = parseFloat(data.percelWeight);
+        let cost = 0;
+        if (isDocument) {
+            cost = isSameDistrict ? 60 : 80;
+        }
+        else {
+            if (percelWeight < 3) {
+                cost = isSameDistrict ? 110 : 150;
+            }
+            else {
+                const extraWeight = percelWeight - 3;
+                const minimumCarge = isSameDistrict ? 110 : 150;
+                const extraCarge = isSameDistrict ? extraWeight * 40 : extraWeight * 40 + 40;
+                cost = minimumCarge + extraCarge;
+            }
+        }
+        console.log('cost', cost);
+        //?Confarmation message;
+        Swal.fire({
+            title: "Are you sure?",
+            text:`your cost ${cost} taka`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+            });
+        });
+
     }
+
     return (
         <div className="mt-15">
             {/* Heading Section */}
@@ -111,7 +146,7 @@ const SendAPercel = () => {
                                 <fieldset class="$$fieldset">
                                     <legend class="$$fieldset-legend">Sender Destrict</legend>
                                     <select {...register('senderDestrict')} defaultValue="Pick a district" class="$$select">
-                                         <option disabled={true}>Pick a district</option>
+                                        <option disabled={true}>Pick a district</option>
                                         {
                                             regionsByDistricts(senderRegion).map((r, i) => <option value={r} key={i}>{r}</option>)
                                         }
