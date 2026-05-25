@@ -1,22 +1,23 @@
 import React, { useEffect } from 'react';
 import { useForm, useWatch } from 'react-hook-form';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 import Swal from 'sweetalert2';
 import useInstance from '../../Hooks/useInstance';
 import useAuth from '../../Hooks/useAuth';
 const SendAPercel = () => {
-     //Todo useInstance hook;
+    //Todo useInstance hook;
     const instance = useInstance();
-     //?get curentuser;
+    const navegate = useNavigate()
+    //?get curentuser;
     const { user } = useAuth();
     //Todo get db data in mypercel;
-    useEffect(()=>{
+    useEffect(() => {
         instance(`/percelDatas?email=${user?.email}`)
-        .then(res=>{
-            // console.log('all percleinfo',res.data);
-        })
-    },[instance,user])
-   
+            .then(res => {
+                // console.log('all percleinfo',res.data);
+            })
+    }, [instance, user])
+
     //Todo get fetch all serverCenter datas;
     const servicesCenterDatas = useLoaderData();
     const dublicateRegions = servicesCenterDatas.map(c => c.region);
@@ -33,7 +34,7 @@ const SendAPercel = () => {
         const allDistrictforRegion = centerDatas.map(d => d.district);
         return allDistrictforRegion
     }
-   
+
     //?form submiter handler;
     const handleFormSubmiter = (data) => {
         console.log(data);
@@ -67,12 +68,22 @@ const SendAPercel = () => {
             cancelButtonColor: "#d33",
             confirmButtonText: "Agree"
         }).then((result) => {
-            if (result.isConfirmed){
-                    instance.post('/percelDatas', data)
+            if (result.isConfirmed) {
+                instance.post('/percelDatas', data)
                     .then(res => {
-                        // console.log(res.data);
+                        console.log(res.data);
+                        if (res.data.insertedId) {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "success",
+                                title: "your percel created now you pay",
+                                showConfirmButton: false,
+                                timer: 2500
+                            });
+                            navegate('/dashboard/mypercels')
+                        }
                     })
-                }
+            }
         });
 
     }
@@ -223,7 +234,7 @@ const SendAPercel = () => {
                                         placeholder="receiver name"
                                     />
                                 </div>
-                                  {/* sender email field */}
+                                {/* sender email field */}
                                 <div>
                                     <label className="text-gray-700 font-semibold mb-2 block">
                                         Receiver Email
