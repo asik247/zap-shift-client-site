@@ -25,7 +25,7 @@ const Payment = () => {
         const paymentInfo = {
             senderEmail:percels.senderEmail,
             percelName:percels.percelName,
-            percleId:percels._id,
+            percelId:percels._id,
             cost:percels.cost,
         }
      const res = await instance.post('/create-checkout-session',paymentInfo)
