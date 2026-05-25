@@ -1,39 +1,41 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import { useParams } from 'react-router';
+import useAuth from '../../../Hooks/useAuth';
 import useInstance from '../../../Hooks/useInstance';
-
 const Payment = () => {
-    const {paymentId} = useParams();
-    const instance = useInstance()
-    const {data:percles=[],isLoading} = useQuery({
-        queryKey:['percles',paymentId],
-        queryFn:async()=>{
-            const res =await instance(`/percelDatas/${paymentId}`)
-            return res.data
+    //Todo user get and instacne and paymentId get;
+    const { paymentId } = useParams();
+    const {user} = useAuth();
+    const instance = useInstance();
+    //?TranStack Query implement;
+    const {data:percels=[],isLoading} = useQuery({
+        queryKey:['percels',paymentId],
+        queryFn:async ()=>{
+            const res = await instance(`/percelDatas/${paymentId}`,)
+            return res.data;
         }
-        
     })
-    const handlePaymetn =async ()=>{
-        const paymentInfo = {
-            cost:percles.cost,
-            percleId:percles._id,
-            senderEmail:percles.senderEmail,
-            percelName:percles.percelName
-            // name:percels.percelName
-        }
-        const res = await instance.post('/create-checkout-session',paymentInfo)
-        console.log(res.data);
-        window.location.href = res.data.url;
-    }
+    //?Loding message;
     if(isLoading){
-        return <p>Loading....</p>
+        return <p>loading...</p>
+    }
+    //!Handler code here;
+    const handlePayment = async() => {;
+        const paymentInfo = {
+            senderEmail:percels.senderEmail,
+            percelName:percels.percelName,
+            percleId:percels._id,
+            cost:percels.cost,
+        }
+     const res = await instance.post('/create-checkout-session',paymentInfo)
+     window.location.href = res.data.url
     }
     return (
         <div>
-            <h2>please pay ${percles.cost} for : {percles.percelName}</h2>
-            <button onClick={handlePaymetn} className='btn btn-ghost'>Pay</button>
-            {console.log('id percles',percles)}
+            <h2>please pay for:-$ {percels.cost} taka this item {percels.percelName}</h2>
+            <button onClick={handlePayment} className='btn btn-ghost'>Pay</button>
+            {console.log(percels)}
         </div>
     );
 };

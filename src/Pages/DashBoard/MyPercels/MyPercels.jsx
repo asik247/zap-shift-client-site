@@ -51,6 +51,20 @@ const MyPercels = () => {
 
 
     }
+    //!handlePayment code here;
+    // const handlePayment = async (percel) => {
+    //     const paymentInfo = {
+    //         senderEmail: percel.senderEmail,
+    //         percelName: percel.percelName,
+    //         percleId: percel._id,
+    //         cost: percel.cost,
+    //     }
+    //     const res = await instance.post('/create-checkout-session', paymentInfo)
+    //     // window.location.href = res.data.url
+    //     console.log(res.data.url);
+    //     window.location.href = res.data.url
+
+    // }
     return (
         <div>
             <p>All Of My Percel:-{percels.length}</p>
@@ -75,15 +89,21 @@ const MyPercels = () => {
                                 <th>{index + 1}</th>
                                 <td>{percel.percelName}</td>
                                 <td>{percel.cost}</td>
+                                {/* payment */}
                                 <td>
                                     {
-                                        percel.paymentStatus === 'paid' ?<span className='text-green-500'>Paid</span> :
-                                        <Link to={`/dashboard/payment/${percel._id}`}>
-                                        <button className='btn btn-ghost btn-sm'>Pay</button>
-                                        </Link>
+                                        percel.paymentStatus === 'paid' ? <span className='text-green-500'>Paid</span> :
+                                            <Link to={`/dashboard/payment/${percel._id}`}>
+                                            <button className='btn btn-ghost btn-sm'>Pay</button>
+                                            </Link>
+
+                                            // <button onClick={() => handlePayment(percel)} className='btn btn-ghost btn-sm'>Pay</button>
+
                                     }
                                 </td>
+                                {/* deliveryStatus */}
                                 <td>{percel.deliveryStatus}</td>
+                                {/* Actions */}
                                 <td>
                                     <button className='btn btn-square'>
                                         <MdBrowserUpdated />
