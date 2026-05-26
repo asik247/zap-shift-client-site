@@ -11,6 +11,7 @@ const MyParcel2 = () => {
             4.payment success then success page navegate or canceld page navegate;
             */}
             <h1>db get sender parcels data</h1>
+            <h2>show table formate</h2>
         </div>
     );
 };
