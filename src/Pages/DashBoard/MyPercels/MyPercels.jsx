@@ -62,7 +62,7 @@ const MyPercels = () => {
     //     const res = await instance.post('/create-checkout-session', paymentInfo)
     //     // window.location.href = res.data.url
     //     console.log(res.data.url);
-    //     window.location.href = res.data.url
+    //     window.location.assign(res.data.url)
 
     // }
     return (

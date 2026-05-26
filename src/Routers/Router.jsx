@@ -20,6 +20,7 @@ import MyPercels from "../Pages/DashBoard/MyPercels/MyPercels";
 import Payment from "../Pages/DashBoard/Payment/Payment";
 import PaymentSuccess from "../Pages/DashBoard/Payment/PaymentSuccess";
 import PaymentCanclled from "../Pages/DashBoard/Payment/PaymentCanclled";
+import MyParcel2 from "../Pages/DashBoard/MyParcel2/MyParcel2";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -52,21 +53,28 @@ const router = createBrowserRouter([
         ]
     },
     {
-        path:'dashboard',
-        element:<PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
-        children:[
-            {path:'mypercels',element:<PrivateRoutes><MyPercels></MyPercels></PrivateRoutes>},
+        path: 'dashboard',
+        element: <PrivateRoutes><DashboardLayout></DashboardLayout></PrivateRoutes>,
+        children: [
             {
-                path:'payment/:paymentId',
-                Component:Payment
+                path: 'mypercels',
+                element: <PrivateRoutes><MyPercels></MyPercels></PrivateRoutes>
             },
             {
-                path:'payment-success',
-                Component:PaymentSuccess
+                path: 'payment/:paymentId',
+                Component: Payment
             },
             {
-                path:'payment-cancelled',
-                Component:PaymentCanclled
+                path: 'payment-success',
+                Component: PaymentSuccess
+            },
+            {
+                path: 'payment-cancelled',
+                Component: PaymentCanclled
+            },
+            {
+                path:'myParcel2',
+                element:<PrivateRoutes><MyParcel2></MyParcel2></PrivateRoutes>
             }
         ]
     }
