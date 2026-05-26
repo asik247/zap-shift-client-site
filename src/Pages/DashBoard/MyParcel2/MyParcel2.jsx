@@ -10,10 +10,6 @@ const MyParcel2 = () => {
             3.pay btn clicked then some info post backed and send session url;
             4.payment success then success page navegate or canceld page navegate;
             */}
-            <h1>db get sender parcels data</h1>
-            <h2>show table formate</h2>
-            <h3>pay btn clicked then some info post backed and send session url</h3>
-            <h4>payment success then success page navegate or canceld page navegate</h4>
         </div>
     );
 };
