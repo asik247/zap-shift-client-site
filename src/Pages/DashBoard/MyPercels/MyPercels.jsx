@@ -47,9 +47,6 @@ const MyPercels = () => {
             }
 
         });
-
-
-
     }
     //!handlePayment code here;
     // const handlePayment = async (percel) => {

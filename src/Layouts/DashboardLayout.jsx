@@ -41,12 +41,12 @@ const DashboardLayout = () => {
                             </Link >
                         </li>
                         {/* MyPercels 2 */}
-                        <li>
+                        {/* <li>
                             <Link to={'/dashboard/myParcel2'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
                                 <IoCarSportSharp className="my-1.5 inline-block size-4" />
                                 <span className="is-drawer-close:hidden">My Parcels 2</span>
                             </Link >
-                        </li>
+                        </li> */}
                         {/* List item */}
                         <li>
                             <button className="is-drawer-close:tooltip is-drawer-close:tooltip-right">
