@@ -50,6 +50,18 @@ const MyParcel2 = () => {
 
         });
     }
+    //? handler for pay parcels cost;
+    const handlerPay = async (p) => {
+        const parcelInfo = {
+            percelName: p.percelName,
+            senderEmail: p.senderEmail,
+            percelId: p._id,
+            cost: p.cost
+        }
+        const res = await instance.post('/create-checkout-session', parcelInfo)
+        window.location.assign(res.data.url)
+
+    }
     return (
         <div>
             <p>My Parcel 2 here!{parcel.length}</p>
@@ -81,9 +93,10 @@ const MyParcel2 = () => {
                                 <td>{p.percelName}</td>
                                 <td>{p.cost}</td>
                                 <td>{
-                                    p.paymentStatus2 === 'paid' ? <span className='text-green-600 font-bold'>Paid</span> : <button className='btn btn-accent'>Pay</button>
+                                    p.paymentStatus2 === 'paid' ? <span className='text-green-600 font-bold'>Paid</span> : <button onClick={() => handlerPay(p)} className='btn btn-accent'>Pay</button>
                                 }</td>
                                 <td>{p.deliveryStatus}</td>
+                                {/* Actions */}
                                 <td>
                                     <button className='btn btn-ghost'>
                                         <FaEdit />
