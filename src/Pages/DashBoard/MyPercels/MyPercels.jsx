@@ -101,6 +101,7 @@ const MyPercels = () => {
 
                                     }
                                 </td>
+                               
                                 {/* deliveryStatus */}
                                 <td>{percel.deliveryStatus}</td>
                                 {/* Actions */}
