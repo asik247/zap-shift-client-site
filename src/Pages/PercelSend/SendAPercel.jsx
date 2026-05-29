@@ -37,7 +37,7 @@ const SendAPercel = () => {
 
     //?form submiter handler;
     const handleFormSubmiter = (data) => {
-        console.log(data);
+        // console.log(data);
         const isDocument = data.percelType === 'document';
         const isSameDistrict = data.senderDestrict === data.receiverDistrict;
         const percelWeight = parseFloat(data.percelWeight);
@@ -56,7 +56,7 @@ const SendAPercel = () => {
                 cost = minimumCarge + extraCarge;
             }
         }
-        console.log('cost', cost);
+        // console.log('cost', cost);
         data.cost = cost;
         //?Confarmation message;
         Swal.fire({
@@ -71,7 +71,7 @@ const SendAPercel = () => {
             if (result.isConfirmed) {
                 instance.post('/percelDatas', data)
                     .then(res => {
-                        console.log(res.data);
+                        // console.log(res.data);
                         if (res.data.insertedId) {
                             Swal.fire({
                                 position: "top-end",

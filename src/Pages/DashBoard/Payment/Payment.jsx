@@ -35,7 +35,7 @@ const Payment = () => {
         <div>
             <h2>please pay for:-$ {percels.cost} taka this item {percels.percelName}</h2>
             <button onClick={handlePayment} className='btn btn-ghost'>Pay</button>
-            {console.log(percels)}
+            {/* {console.log(percels)} */}
         </div>
     );
 };
