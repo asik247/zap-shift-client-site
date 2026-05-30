@@ -37,7 +37,7 @@ const Reviews = ({ revewData }) => {
                     grabCursor={true}
                     centeredSlides={true}
 
-                    slidesPerView={1}   // ✅ mobile default 1
+                    slidesPerView={1}   
 
                     spaceBetween={30}
                     speed={800}

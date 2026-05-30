@@ -20,6 +20,7 @@ import MyPercels from "../Pages/DashBoard/MyPercels/MyPercels";
 import Payment from "../Pages/DashBoard/Payment/Payment";
 import PaymentSuccess from "../Pages/DashBoard/Payment/PaymentSuccess";
 import PaymentCanclled from "../Pages/DashBoard/Payment/PaymentCanclled";
+import PaymentHistory from "../Pages/DashBoard/PaymentHistory/PaymentHistory";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -70,6 +71,10 @@ const router = createBrowserRouter([
             {
                 path: 'payment-cancelled',
                 Component: PaymentCanclled
+            },
+            {
+                path: 'paymentHistory',
+                element:<PaymentHistory></PaymentHistory>
             },
            
         ]
