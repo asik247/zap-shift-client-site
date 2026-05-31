@@ -4,6 +4,7 @@ import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
 import useAuth from '../../Hooks/useAuth';
 import useInstance from '../../Hooks/useInstance';
+import Swal from 'sweetalert2';
 const Rider = () => {
     //?user + instance;
     const { user } = useAuth();
@@ -28,7 +29,13 @@ const Rider = () => {
         instance.post('/riders', data)
             .then(res => {
                 if (res.data.insertedId) {
-                    alert('submitted your application')
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Your application has been submited. please awite for approval in 15 days!",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
                 }
             })
     }

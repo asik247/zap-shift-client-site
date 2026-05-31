@@ -4,9 +4,11 @@ import useInstance from '../../../Hooks/useInstance';
 import { FaUserCheck } from 'react-icons/fa';
 import { HiUserRemove } from 'react-icons/hi';
 import { IoTrashBinOutline } from 'react-icons/io5';
+import Swal from 'sweetalert2';
+
 const ApproveRider = () => {
     const instance = useInstance()
-    const { data: approved = [] } = useQuery({
+    const { data: approved = [],refetch } = useQuery({
         queryKey: ['approved', 'pending'],
         queryFn: async () => {
             const res = await instance.get('/riders')
@@ -14,9 +16,21 @@ const ApproveRider = () => {
         }
     })
     //? handler approval;
-    const handlerApproval = (id)=>{
-        console.log('approval clicked',id);
-        instance.patch(`/riders/${id}`)
+    const handlerApproval = (id) => {
+        const updateInfo = { status: 'approved' }
+        instance.patch(`/riders/${id}`, updateInfo)
+            .then(res => {
+                if (res.data.modifiedCount) {
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Rider has been approved",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    refetch()
+                }
+            })
     }
     return (
         <div>
@@ -42,16 +56,18 @@ const ApproveRider = () => {
                                 <td>{singleApp.name}</td>
                                 <td>{singleApp.email}</td>
                                 <td>{singleApp.region}</td>
-                                <td>{singleApp.status}</td>
                                 <td>
-                                    <button onClick={()=>handlerApproval(singleApp._id)} className="btn btn-ghost">
+                                    <p className={`${singleApp.status === 'approved' ? 'text-green-800' : 'text-red-500'}`}>{singleApp.status}</p>
+                                </td>
+                                <td>
+                                    <button onClick={() => handlerApproval(singleApp._id)} className="btn btn-ghost">
                                         <FaUserCheck />
                                     </button>
                                     <button className="btn btn-ghost">
-                                       <HiUserRemove />
+                                        <HiUserRemove />
                                     </button>
                                     <button className="btn btn-ghost">
-                                       <IoTrashBinOutline />
+                                        <IoTrashBinOutline />
                                     </button>
                                 </td>
                             </tr>)
