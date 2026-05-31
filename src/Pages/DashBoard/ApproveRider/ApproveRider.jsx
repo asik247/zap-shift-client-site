@@ -11,6 +11,16 @@ const ApproveRider = () => {
             return res.data
         }
     })
+    //? approvel;
+    const handlerApproval = (id)=>{
+        // console.log('id',id);
+        const updateInfo = {status:'approved'}
+        instance.patch(`/riders/${id}`,updateInfo)
+        .then(res=>{
+            console.log(res.data);
+        })
+
+    }
     return (
         <div>
             <p>approval {riders.length}</p>
@@ -21,19 +31,28 @@ const ApproveRider = () => {
                         <tr>
                             <th></th>
                             <th>Name</th>
-                            <th>Job</th>
-                            <th>Favorite Color</th>
+                            <th>Status</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {
-                            riders.map((rider, index) => <tr key={rider._id}>
+                            riders.map((rider, index) =>
+                            
+                            <tr key={rider._id}>
                                 <th>{index+1}</th>
                                 <td>Cy Ganderton</td>
-                                <td>Quality Control Specialist</td>
-                                <td>Blue</td>
+                                <td>
+                                    <p >{rider.status}</p>
+                                    
+                                </td>
+                                <td>
+                                    <button onClick={()=>handlerApproval(rider._id)} className="btn mx-2">accept</button>
+                                    <button className="btn">reject</button>
+                                </td>
                             </tr>)
                         }
+                       
 
 
                     </tbody>
