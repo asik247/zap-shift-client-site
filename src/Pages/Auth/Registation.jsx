@@ -21,7 +21,7 @@ const Registation = () => {
         registerUsers(data.email, data.password)
             .then(res => {
                 // console.log(res.user);
-                navegate(location.state || '/')
+               
                 //Todo: store the img and get the imgaebb url;
                 const formData = new FormData();
                 formData.append('image', profileImg);
@@ -41,6 +41,7 @@ const Registation = () => {
                         .then(res=>{
                             if(res.data.insertedId){
                                 console.log('user created database');
+                                 navegate(location.state || '/')
                             }
                         })
                         const userProfile = {

@@ -21,6 +21,7 @@ import Payment from "../Pages/DashBoard/Payment/Payment";
 import PaymentSuccess from "../Pages/DashBoard/Payment/PaymentSuccess";
 import PaymentCanclled from "../Pages/DashBoard/Payment/PaymentCanclled";
 import PaymentHistory from "../Pages/DashBoard/PaymentHistory/PaymentHistory";
+import Rider from "../Pages/BeARider/Rider";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -36,6 +37,11 @@ const router = createBrowserRouter([
                 path: 'percelSend',
                 element: <PrivateRoutes><SendAPercel></SendAPercel></PrivateRoutes>
                 , loader: () => fetch('/servicesHouse.json').then(res => res.json())
+            },
+            {
+                path: 'rider',
+                element: <PrivateRoutes><Rider></Rider></PrivateRoutes>,
+                loader:()=>fetch('/servicesHouse.json').then(res=>res.json())
             },
             { path: 'aboutus', element: <AboutPage></AboutPage> },
             { path: 'pricing', element: <Priching></Priching> },
@@ -74,9 +80,9 @@ const router = createBrowserRouter([
             },
             {
                 path: 'paymentHistory',
-                element:<PaymentHistory></PaymentHistory>
+                element: <PaymentHistory></PaymentHistory>
             },
-           
+
         ]
     }
 ])

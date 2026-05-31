@@ -11,9 +11,11 @@ const Navbar = () => {
         <li><NavLink to={'/services'}>Services</NavLink></li>
         <li><NavLink to={'/coverage'}>Coverage</NavLink></li>
         <li><NavLink to={'/percelSend'}>Send A Percel</NavLink></li>
+        <li><NavLink to={'/rider'}>Be A Rider</NavLink></li>
         {
             user && <>
                 <li><NavLink to={'/dashboard/mypercels'}>My Parcels</NavLink></li>
+                
               
 
             </>
