@@ -2,6 +2,7 @@ import React from 'react';
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { FaHistory } from 'react-icons/fa';
 import { IoCarSportSharp } from 'react-icons/io5';
+import { RiMotorbikeFill } from 'react-icons/ri';
 import { Link, Outlet } from 'react-router';
 const DashboardLayout = () => {
     return (
@@ -46,6 +47,13 @@ const DashboardLayout = () => {
                             <Link to={'/dashboard/paymentHistory'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
                                 <FaHistory className="my-1.5 inline-block size-4" />
                                 <span className="is-drawer-close:hidden">Payment History</span>
+                            </Link >
+                        </li>
+                        {/* Approve rider */}
+                        <li>
+                            <Link to={'/dashboard/approveRider'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
+                               <RiMotorbikeFill className="my-1.5 inline-block size-4" />
+                                <span className="is-drawer-close:hidden">Approve Rider</span>
                             </Link >
                         </li>
                         {/* MyPercels 2 */}

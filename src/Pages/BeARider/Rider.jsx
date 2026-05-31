@@ -2,24 +2,36 @@ import React from 'react';
 import riderImg from '../../assets/agent-pending.png'
 import { useForm, useWatch } from 'react-hook-form';
 import { useLoaderData } from 'react-router';
+import useAuth from '../../Hooks/useAuth';
+import useInstance from '../../Hooks/useInstance';
 const Rider = () => {
+    //?user + instance;
+    const { user } = useAuth();
+    const instance = useInstance();
     //! servicesHouse data;
     const servicesHouseData = useLoaderData();
     const dublicatedData = servicesHouseData.map(c => c.region)
     const regionsData = [... new Set(dublicatedData)]
     // console.log(regionsData);
     //? react hook form;
-    const { register, handleSubmit,control, formState: { errors } } = useForm();
-    const regions = useWatch({control,name:'region'})
-    const submitRiderForm = (data) => {
-        console.log('rider form clicked', data);
-    }
-     //Todo:mechine for 8 regions --- all districts;
-     const allDistricts = (region)=>{
-        const centerData = servicesHouseData.filter(c=>c.region === region);
-        const districts = centerData.map(d=>d.district)
+    const { register, handleSubmit, control, formState: { errors } } = useForm();
+    const regions = useWatch({ control, name: 'region' })
+    //Todo:mechine for 8 regions --- all districts;
+    const allDistricts = (region) => {
+        const centerData = servicesHouseData.filter(c => c.region === region);
+        const districts = centerData.map(d => d.district)
         return districts
-     }
+    }
+    //? handler sumbiter;
+    const submitRiderForm = (data) => {
+        // console.log('rider form clicked', data);
+        instance.post('/riders', data)
+            .then(res => {
+                if (res.data.insertedId) {
+                    alert('submitted your application')
+                }
+            })
+    }
     return (
         <div>
             <h1 className='font-bold text-2xl my-2'>Be a Rider</h1>
@@ -42,6 +54,8 @@ const Rider = () => {
                                         <input
                                             type="text"
                                             {...register('name', { required: 'Name is required' })}
+                                            defaultValue={user?.displayName}
+
                                             className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                             placeholder="your name"
                                         />
@@ -67,6 +81,8 @@ const Rider = () => {
                                         </label>
                                         <input
                                             type="email"
+                                            defaultValue={user?.email}
+                                            readOnly={true}
                                             {...register('email', { required: 'Email is required' })}
                                             className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                             placeholder="your email"
@@ -81,7 +97,7 @@ const Rider = () => {
                                         <select {...register('region')} defaultValue="Pick a region" class="$$select">
                                             <option disabled={true}>Pick a region</option>
                                             {
-                                                regionsData.map((r,i)=><option value={r} key={i}>{r}</option>)
+                                                regionsData.map((r, i) => <option value={r} key={i}>{r}</option>)
                                             }
                                         </select>
 
@@ -92,7 +108,7 @@ const Rider = () => {
                                         <select defaultValue="Pick a district" class="$$select">
                                             <option disabled={true}>Pick a district</option>
                                             {
-                                                allDistricts(regions).map((d,i)=><option value={d} key={i}>{d}</option>)
+                                                allDistricts(regions).map((d, i) => <option value={d} key={i}>{d}</option>)
                                             }
                                         </select>
 
