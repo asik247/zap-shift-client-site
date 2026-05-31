@@ -1,8 +1,10 @@
 import React from 'react';
 import useAuth from '../../Hooks/useAuth';
 import { useLocation, useNavigate } from 'react-router';
+import useInstance from '../../Hooks/useInstance';
 
 const GoogleLogin = () => {
+    const instance = useInstance();
     const {googleLogIn} = useAuth()
     const location = useLocation();
     // console.log('in the social logn',location);
@@ -11,7 +13,21 @@ const GoogleLogin = () => {
         googleLogIn()
         .then((res)=>{
             // console.log(res.user);
-            navegate(location.state||"/")
+           
+            //? created user in the database;
+            const userInfo = {
+                email:res.user.email,
+                displayName:res.user.displayName,
+                photoURL:res.user.photoURL
+            }
+            instance.post('/users',userInfo)
+            .then(res=>{
+                console.log(res.data);
+                if(res.data.insertedId){
+                    console.log('social login created user');
+                     navegate(location.state||"/")
+                }
+            })
         }).catch(error=>{
             console.log(error);
         })
