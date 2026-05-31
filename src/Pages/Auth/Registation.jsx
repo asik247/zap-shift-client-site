@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form';
 import { Link, useLocation, useNavigate } from 'react-router';
 import useAuth from '../../Hooks/useAuth';
 import axios from 'axios';
+import GoogleLogin from '../SocialLogIn/GoogleLogin';
+import useInstance from '../../Hooks/useInstance';
 
 const Registation = () => {
     //!userinfo get authProvider;
@@ -10,14 +12,15 @@ const Registation = () => {
     const { register, handleSubmit, formState: { errors } } = useForm()
     const location = useLocation();
     const navegate = useNavigate();
-    console.log('in the location for regiter',location);
+    const instance = useInstance()
+    // console.log('in the location for regiter', location);
     const handleRegistater = (data) => {
         // console.log('resigatio data;', data.photo[0]);
         //Todo:profileImg;
         const profileImg = data.photo[0];
         registerUsers(data.email, data.password)
             .then(res => {
-                console.log(res.user);
+                // console.log(res.user);
                 navegate(location.state || '/')
                 //Todo: store the img and get the imgaebb url;
                 const formData = new FormData();
@@ -28,17 +31,29 @@ const Registation = () => {
                 axios.post(image_api_url, formData)
                     .then(res => {
                         // console.log('my current img url',res.data.data);
+                        //? create user in the database;
+                        const userInfo = {
+                            email: data.email,
+                            displayName: data.name,
+                            photoURL: res.data.data.url
+                        }
+                        instance.post('/users',userInfo)
+                        .then(res=>{
+                            if(res.data.insertedId){
+                                console.log('user created database');
+                            }
+                        })
                         const userProfile = {
                             displayName: data.name,
                             photoURL: res.data.data.url
                         }
-                        console.log(userProfile);
+                        // console.log(userProfile);
                         updateUserProfile(userProfile)
-                        .then(()=>{
+                            .then(() => {
 
-                        }).catch(error=>{
-                            console.log(error);
-                        })
+                            }).catch(error => {
+                                console.log(error);
+                            })
                     })
             }).catch(error => {
                 console.log(error.message);
@@ -162,6 +177,8 @@ const Registation = () => {
                     Login
                 </Link>
             </p>
+            {/* Google login */}
+            <GoogleLogin></GoogleLogin>
         </div>
     );
 };
