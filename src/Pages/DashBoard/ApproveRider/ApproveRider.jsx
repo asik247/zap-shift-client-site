@@ -18,6 +18,7 @@ const ApproveRider = () => {
         instance.patch(`/riders/${id}`,updateInfo)
         .then(res=>{
             console.log(res.data);
+           
         })
 
     }
