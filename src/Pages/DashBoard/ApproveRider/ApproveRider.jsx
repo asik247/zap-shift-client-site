@@ -31,7 +31,8 @@ const ApproveRider = () => {
             })
     }
     //? approvel;
-    const handlerApproval = (id) => {
+    const handlerApproval = (rider) => {
+        const id = rider._id;
         handlerAppRej(id, 'Approved')
 
     }
@@ -73,7 +74,7 @@ const ApproveRider = () => {
                                         <p >{rider.region}</p>
                                     </td>
                                     <td>
-                                        <button onClick={() => handlerApproval(rider._id)} className="btn mx-2"><FcApprove />
+                                        <button onClick={() => handlerApproval(rider)} className="btn mx-2"><FcApprove />
                                         </button>
                                         <button onClick={() => handlerRejected(rider._id)} className="btn mx-2"><FcDisapprove /></button>
                                         <button className="btn"><FaTrashAlt /></button>
