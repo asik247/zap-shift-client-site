@@ -7,38 +7,38 @@ import { FaTrashAlt } from 'react-icons/fa';
 
 const ApproveRider = () => {
     const instance = useInstance()
-    const { data: riders = [] } = useQuery({
+    const { data: riders = [], refetch } = useQuery({
         queryKey: ['riders', 'pending'],
         queryFn: async () => {
             const res = await instance.get('/riders');
             return res.data
         }
     })
-    //? approvel;
-    const handlerApproval = (id) => {
-        const updateInfo = { status: 'Approved' }
-        instance.patch(`/riders/${id}`, updateInfo)
+    //? approvel + rejected;
+    const handlerAppRej = (id, status) => {
+        instance.patch(`/riders/${id}`, { status })
             .then(res => {
                 if (res.data.modifiedCount) {
                     Swal.fire({
                         position: "top-end",
                         icon: "success",
-                        title: "your application has been approved!",
+                        title: `Your application has been ${status}`,
                         showConfirmButton: false,
                         timer: 1500
                     });
                 }
-
+                refetch()
             })
+    }
+    //? approvel;
+    const handlerApproval = (id) => {
+        handlerAppRej(id, 'Approved')
 
     }
     //? Rejected;
     const handlerRejected = (id) => {
-        const updateInfo = { status: 'Rejected' }
-        instance.patch(`/riders/${id}`, updateInfo)
-            .then(res => {
-                console.log(res.data);
-            })
+        handlerAppRej(id, 'Rejected')
+
     }
     return (
         <div>
@@ -64,7 +64,7 @@ const ApproveRider = () => {
                                     <th>{index + 1}</th>
                                     <td>{rider.name}</td>
                                     <td>
-                                        <p >{rider.status}</p>
+                                        <p className={`${rider.status === 'Approved' ? 'text-green-800' : 'text-red-600'}`}>{rider.status}</p>
                                     </td>
                                     <td>
                                         <p >{rider.email}</p>
