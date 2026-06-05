@@ -16,7 +16,7 @@ const ApproveRider = () => {
     })
     //? approvel + rejected;
     const handlerAppRej = (rider, status) => {
-        instance.patch(`/riders/${rider._id}`, { status,email:rider.email })
+        instance.patch(`/riders/${rider._id}`, { status, email: rider.email })
             .then(res => {
                 if (res.data.modifiedCount) {
                     Swal.fire({
@@ -38,6 +38,16 @@ const ApproveRider = () => {
     //? Rejected;
     const handlerRejected = (rider) => {
         handlerAppRej(rider, 'Rejected')
+    }
+    //? Remove application;
+    const handleRemove = (id) => {
+        instance.delete(`/riders/${id}`)
+            .then(res => {
+                console.log(res.data);
+                refetch()
+            })
+
+
     }
     return (
         <div>
@@ -75,7 +85,7 @@ const ApproveRider = () => {
                                         <button onClick={() => handlerApproval(rider)} className="btn mx-2"><FcApprove />
                                         </button>
                                         <button onClick={() => handlerRejected(rider)} className="btn mx-2"><FcDisapprove /></button>
-                                        <button className="btn"><FaTrashAlt /></button>
+                                        <button onClick={() => handleRemove(rider._id)} className="btn"><FaTrashAlt /></button>
                                     </td>
                                 </tr>)
                         }
