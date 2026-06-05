@@ -25,8 +25,8 @@ const UsersManagement = () => {
                             </th>
                             <th>Name</th>
                             <th>Email</th>
-                            <th>Favorite Color</th>
-                            <th></th>
+                            <th>Role</th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -53,10 +53,12 @@ const UsersManagement = () => {
                             <td>
                                {user.email}
                             </td>
-                            <td>Purple</td>
-                            <th>
-                                <button className="btn btn-ghost btn-xs">details</button>
-                            </th>
+                            <td className={`${user.role ==='rider'?'text-green-600' : ''}`}>{user.role}</td>
+                            <td>
+                                <button className="btn btn-ghost btn-xs">Remove</button>
+                                <button className="btn btn-ghost btn-xs mx-2">Remove</button>
+                                <button className="btn btn-ghost btn-xs">Remove</button>
+                            </td>
                         </tr>)}
 
 
