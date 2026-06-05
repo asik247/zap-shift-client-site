@@ -23,6 +23,7 @@ import PaymentCanclled from "../Pages/DashBoard/Payment/PaymentCanclled";
 import PaymentHistory from "../Pages/DashBoard/PaymentHistory/PaymentHistory";
 import Rider from "../Pages/BeARider/Rider";
 import ApproveRider from "../Pages/DashBoard/ApproveRider/ApproveRider";
+import UsersManagement from "../Pages/DashBoard/UsersManagement/UsersManagement";
 const router = createBrowserRouter([
     {
         path: '/',
@@ -86,6 +87,10 @@ const router = createBrowserRouter([
             {
                 path:'approveRider',
                 Component:ApproveRider
+            },
+            {
+                path:'usersManagemennt',
+                Component:UsersManagement
             }
 
         ]

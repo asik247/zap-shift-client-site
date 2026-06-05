@@ -3,7 +3,7 @@ import React from 'react';
 import useInstance from '../../../Hooks/useInstance';
 import { FcApprove, FcDisapprove } from 'react-icons/fc';
 import Swal from 'sweetalert2';
-import { FaTrashAlt } from 'react-icons/fa';
+import { FaEye, FaTrashAlt } from 'react-icons/fa';
 
 const ApproveRider = () => {
     const instance = useInstance()
@@ -82,6 +82,8 @@ const ApproveRider = () => {
                                         <p >{rider.region}</p>
                                     </td>
                                     <td>
+                                        <button  className="btn mx-2"><FaEye />
+                                        </button>
                                         <button onClick={() => handlerApproval(rider)} className="btn mx-2"><FcApprove />
                                         </button>
                                         <button onClick={() => handlerRejected(rider)} className="btn mx-2"><FcDisapprove /></button>
