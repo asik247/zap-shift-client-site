@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 const UsersManagement = () => {
     const instance = useInstance()
     //Todo Transtack querey using load users data in db;
-    const { data: users = [],refetch } = useQuery({
+    const { data: users = [], refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await instance(`/users`);
@@ -15,7 +15,7 @@ const UsersManagement = () => {
         }
     })
     //? User role sellected;
-    const handlerAdmin = (user) => {
+    const handlerAdminMakeRemove = (user, roleInfo) => {
         // console.log(user);
         Swal.fire({
             title: "Are you sure?",
@@ -27,7 +27,6 @@ const UsersManagement = () => {
             confirmButtonText: "Yes!"
         }).then((result) => {
             if (result.isConfirmed) {
-                const roleInfo = { role: 'admin' }
                 instance.patch(`/users/${user._id}`, roleInfo)
                     .then(res => {
                         // console.log(res.data);
@@ -44,6 +43,14 @@ const UsersManagement = () => {
 
         });
 
+    }
+    const handlerAdmin = (user) => {
+        const roleInfo = { role: 'admin' }
+        handlerAdminMakeRemove(user,roleInfo)
+    }
+    const handlerRemove = (user) => {
+        const roleInfo = { role: 'user' }
+        handlerAdminMakeRemove(user,roleInfo)
     }
     return (
         <div>
@@ -90,7 +97,7 @@ const UsersManagement = () => {
                             <td className={`${user.role === 'rider' ? 'text-green-600' : ''}`}>{user.role}</td>
                             <td>
                                 {user.role === 'admin' ?
-                                    <button className="btn btn-ghost btn-xs text-3xl text-red-400"><MdOutlineAdminPanelSettings /></button>
+                                    <button onClick={()=>handlerRemove(user)} className="btn btn-ghost btn-xs text-3xl text-red-400"><MdOutlineAdminPanelSettings /></button>
                                     :
                                     <button onClick={() => handlerAdmin(user)} className="btn btn-ghost btn-xs text-3xl text-green-600"><MdAdminPanelSettings /></button>
                                 }
