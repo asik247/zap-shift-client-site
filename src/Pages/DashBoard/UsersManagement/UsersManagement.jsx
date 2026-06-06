@@ -19,7 +19,7 @@ const UsersManagement = () => {
         // console.log(user);
         Swal.fire({
             title: "Are you sure?",
-            text: `Do you want to make ${user.displayName} an admin?`,
+            text: `Do you want to make ${user.displayName} ${roleInfo.role === 'admin'?' an admin?':'an user?'}`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -34,7 +34,7 @@ const UsersManagement = () => {
                             refetch()
                             Swal.fire({
                                 title: "Confarm!",
-                                text: `Done ${user.displayName} has been admin`,
+                                text: `Done ${user.displayName} ${roleInfo.role==='admin'?'has been admin':'has been user'} `,
                                 icon: "success"
                             });
                         }
