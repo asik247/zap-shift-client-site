@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useInstance from '../../../Hooks/useInstance';
+import { MdAdminPanelSettings, MdOutlineAdminPanelSettings } from 'react-icons/md';
 
 const UsersManagement = () => {
     const instance = useInstance()
@@ -21,18 +22,19 @@ const UsersManagement = () => {
                     <thead>
                         <tr>
                             <th>
-                               #
+                                #
                             </th>
                             <th>Name</th>
                             <th>Email</th>
                             <th>Role</th>
-                            <th>Actions</th>
+                            <th>Admin Actions</th>
+                            <th>Other Actions</th>
                         </tr>
                     </thead>
                     <tbody>
                         {users.map((user, index) => <tr>
                             <td>
-                               {index+1}
+                                {index + 1}
                             </td>
                             <td>
                                 {/* Photo + name */}
@@ -46,18 +48,21 @@ const UsersManagement = () => {
                                     </div>
                                     <div>
                                         <div className="font-bold">{user?.displayName}</div>
-                                        
+
                                     </div>
                                 </div>
                             </td>
                             <td>
-                               {user.email}
+                                {user.email}
                             </td>
-                            <td className={`${user.role ==='rider'?'text-green-600' : ''}`}>{user.role}</td>
+                            <td className={`${user.role === 'rider' ? 'text-green-600' : ''}`}>{user.role}</td>
                             <td>
-                                <button className="btn btn-ghost btn-xs">Remove</button>
-                                <button className="btn btn-ghost btn-xs mx-2">Remove</button>
-                                <button className="btn btn-ghost btn-xs">Remove</button>
+                                {user.role === 'admin' ?
+                                    <button className="btn btn-ghost btn-xs text-3xl"><MdOutlineAdminPanelSettings /></button>
+                                    :
+                                    <button className="btn btn-ghost btn-xs text-3xl"><MdAdminPanelSettings /></button>
+                                }
+
                             </td>
                         </tr>)}
 
