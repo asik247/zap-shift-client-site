@@ -2,17 +2,49 @@ import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useInstance from '../../../Hooks/useInstance';
 import { MdAdminPanelSettings, MdOutlineAdminPanelSettings } from 'react-icons/md';
+import Swal from 'sweetalert2';
 
 const UsersManagement = () => {
     const instance = useInstance()
     //Todo Transtack querey using load users data in db;
-    const { data: users = [] } = useQuery({
+    const { data: users = [],refetch } = useQuery({
         queryKey: ['users'],
         queryFn: async () => {
             const res = await instance(`/users`);
             return res.data
         }
     })
+    //? User role sellected;
+    const handlerAdmin = (user) => {
+        // console.log(user);
+        Swal.fire({
+            title: "Are you sure?",
+            text: `Do you want to make ${user.displayName} an admin?`,
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes!"
+        }).then((result) => {
+            if (result.isConfirmed) {
+                const roleInfo = { role: 'admin' }
+                instance.patch(`/users/${user._id}`, roleInfo)
+                    .then(res => {
+                        // console.log(res.data);
+                        if (res.data.modifiedCount) {
+                            refetch()
+                            Swal.fire({
+                                title: "Confarm!",
+                                text: `Done ${user.displayName} has been admin`,
+                                icon: "success"
+                            });
+                        }
+                    })
+            }
+
+        });
+
+    }
     return (
         <div>
             <h2 className="text-4xl">Manage users {users.length}</h2>
@@ -32,7 +64,7 @@ const UsersManagement = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {users.map((user, index) => <tr>
+                        {users.map((user, index) => <tr key={index}>
                             <td>
                                 {index + 1}
                             </td>
@@ -58,9 +90,9 @@ const UsersManagement = () => {
                             <td className={`${user.role === 'rider' ? 'text-green-600' : ''}`}>{user.role}</td>
                             <td>
                                 {user.role === 'admin' ?
-                                    <button className="btn btn-ghost btn-xs text-3xl"><MdOutlineAdminPanelSettings /></button>
+                                    <button className="btn btn-ghost btn-xs text-3xl text-red-400"><MdOutlineAdminPanelSettings /></button>
                                     :
-                                    <button className="btn btn-ghost btn-xs text-3xl"><MdAdminPanelSettings /></button>
+                                    <button onClick={() => handlerAdmin(user)} className="btn btn-ghost btn-xs text-3xl text-green-600"><MdAdminPanelSettings /></button>
                                 }
 
                             </td>
