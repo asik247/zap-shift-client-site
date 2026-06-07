@@ -27,7 +27,7 @@ const UsersManagement = () => {
             confirmButtonText: "Yes!"
         }).then((result) => {
             if (result.isConfirmed) {
-                instance.patch(`/users/${user._id}`, roleInfo)
+                instance.patch(`/users/${user._id}/role`, roleInfo)
                     .then(res => {
                         // console.log(res.data);
                         if (res.data.modifiedCount) {
