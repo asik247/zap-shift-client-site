@@ -89,7 +89,7 @@ const Rider = () => {
                                         <input
                                             type="email"
                                             defaultValue={user?.email}
-                                            readOnly={true}
+                                            
                                             {...register('email', { required: 'Email is required' })}
                                             className="w-full border border-gray-300 rounded-xl px-4 py-3 outline-none"
                                             placeholder="your email"

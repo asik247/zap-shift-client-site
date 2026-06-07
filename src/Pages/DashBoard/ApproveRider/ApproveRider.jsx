@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import useInstance from '../../../Hooks/useInstance';
 import { FcApprove, FcDisapprove } from 'react-icons/fc';
 import Swal from 'sweetalert2';
@@ -7,6 +7,8 @@ import { FaEye, FaTrashAlt } from 'react-icons/fa';
 
 const ApproveRider = () => {
     const instance = useInstance()
+    const [sellectedRider, setSellectedRider] = useState(null)
+    const modalRef = useRef(null)
     const { data: riders = [], refetch } = useQuery({
         queryKey: ['riders', 'pending'],
         queryFn: async () => {
@@ -41,33 +43,39 @@ const ApproveRider = () => {
     }
     //? Remove application;
     const handleRemove = (id) => {
-        instance.delete(`/riders/${id}`)
-            .then(res => {
-                console.log(res.data);
+        Swal.fire({
+            title: "Are you sure?",
+            text: "This rider has been deleted!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+        }).then((result) => {
+            if (result.isConfirmed) {
                 refetch()
-            })
+                instance.delete(`/riders/${id}`)
+                    .then(res => {
+                        if (res.data.deletedCount) {
+                            Swal.fire({
+                                title: "Deleted!",
+                                text: "Your riders has been deleted.",
+                                icon: "success"
+                            });
+                        }
+                        // console.log(res.data.deletedCount);
+                    })
+            }
+        });
+
 
 
     }
     //? handler details;
     const handleDetails = (rider) => {
-        console.log(rider);
-        <>
-            {/* <button className="btn" onClick={() => document.getElementById('my_modal_5').showModal()}>open modal</button> */}
-            <dialog id="my_modal_5" className="modal modal-bottom sm:modal-middle">
-                <div className="modal-box">
-                    <h3 className="font-bold text-lg">Hello!</h3>
-                    <p className="py-4">Press ESC key or click the button below to close</p>
-                    <div className="modal-action">
-                        <form method="dialog">
-                            {/* if there is a button in form, it will close the modal */}
-                            <button className="btn">Close</button>
-                        </form>
-                    </div>
-                </div>
-            </dialog>
-           
-        </>
+        setSellectedRider(rider)
+        modalRef.current.showModal();
+
     }
     return (
         <div>
@@ -116,6 +124,28 @@ const ApproveRider = () => {
 
                     </tbody>
                 </table>
+                {/* //! Modal open code; */}
+                <div>
+                    <dialog ref={modalRef} className="modal modal-bottom sm:modal-middle">
+                        <div className="modal-box bg-white text-black shadow-2xl border border-gray-200">
+                            {sellectedRider && <>
+                                <p>{`Name:- ${sellectedRider?.name}`}</p>
+                                <p className='py-2'>{`Email:- ${sellectedRider?.email}`}</p>
+                                <p className='py-4'>{`Region:- ${sellectedRider?.region}`}</p>
+                                <p>{`Status:- ${sellectedRider?.status}`}</p>
+                            </>}
+                            <div className="modal-action">
+                                <form method="dialog">
+                                    <button onClick={() => handlerApproval(sellectedRider)} className="btn mx-2"><FcApprove />
+                                    </button>
+                                    <button onClick={() => handlerRejected(sellectedRider)} className="btn mx-2"><FcDisapprove /></button>
+                                    <button onClick={() => handleRemove(sellectedRider._id)} className="btn"><FaTrashAlt /></button>
+                                    <button className="btn">Close</button>
+                                </form>
+                            </div>
+                        </div>
+                    </dialog>
+                </div>
             </div>
         </div>
     );
