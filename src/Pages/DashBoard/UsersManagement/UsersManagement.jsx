@@ -10,9 +10,9 @@ const UsersManagement = () => {
     const instance = useInstance()
     //Todo Transtack querey using load users data in db;
     const { data: users = [], refetch } = useQuery({
-        queryKey: ['users'],
+        queryKey: ['users',searchText],
         queryFn: async () => {
-            const res = await instance(`/users`);
+            const res = await instance(`/users?searchText=${searchText}`);
             return res.data
         }
     })

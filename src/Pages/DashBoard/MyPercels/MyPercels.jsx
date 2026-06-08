@@ -76,6 +76,7 @@ const MyPercels = () => {
                             <th>Name</th>
                             <th>Cost</th>
                             <th>Payment</th>
+                            <th>TrackingId</th>
                             <th>Delivery Status</th>
                             <th>Actions</th>
                         </tr>
@@ -100,6 +101,7 @@ const MyPercels = () => {
                                 </td>
                                
                                 {/* deliveryStatus */}
+                                <td>{percel.trackingId}</td>
                                 <td>{percel.deliveryStatus}</td>
                                 {/* Actions */}
                                 <td>

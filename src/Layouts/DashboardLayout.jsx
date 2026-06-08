@@ -2,7 +2,7 @@ import React from 'react';
 import { CiDeliveryTruck } from 'react-icons/ci';
 import { FaHistory, FaUsers } from 'react-icons/fa';
 // import { IoCarSportSharp } from 'react-icons/io5';
-import { RiMotorbikeFill } from 'react-icons/ri';
+import { RiEBikeFill, RiMotorbikeFill } from 'react-icons/ri';
 import { Link, Outlet } from 'react-router';
 import useRole from '../Hooks/useRole';
 const DashboardLayout = () => {
@@ -70,6 +70,13 @@ const DashboardLayout = () => {
                                     <Link to={'/dashboard/usersManagemennt'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
                                         <FaUsers className="my-1.5 inline-block size-4" />
                                         <span className="is-drawer-close:hidden">Users Management</span>
+                                    </Link >
+                                </li>
+                                {/* assign-riders */}
+                                <li>
+                                    <Link to={'/dashboard/assignRiders'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
+                                        <RiEBikeFill className="my-1.5 inline-block size-4" />
+                                        <span className="is-drawer-close:hidden">Assign Riders</span>
                                     </Link >
                                 </li>
                             </>
