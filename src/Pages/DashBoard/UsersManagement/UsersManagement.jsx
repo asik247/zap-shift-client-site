@@ -1,10 +1,12 @@
 import { useQuery } from '@tanstack/react-query';
-import React from 'react';
+import React, { useState } from 'react';
 import useInstance from '../../../Hooks/useInstance';
 import { MdAdminPanelSettings, MdOutlineAdminPanelSettings } from 'react-icons/md';
 import Swal from 'sweetalert2';
 
 const UsersManagement = () => {
+    //? Serarch input filed state here;
+    const [searchText,setSearchText] = useState(' ');
     const instance = useInstance()
     //Todo Transtack querey using load users data in db;
     const { data: users = [], refetch } = useQuery({
@@ -19,7 +21,7 @@ const UsersManagement = () => {
         // console.log(user);
         Swal.fire({
             title: "Are you sure?",
-            text: `Do you want to make ${user.displayName} ${roleInfo.role === 'admin'?' an admin?':'an user?'}`,
+            text: `Do you want to make ${user.displayName} ${roleInfo.role === 'admin' ? ' an admin?' : 'an user?'}`,
             icon: "warning",
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
@@ -34,7 +36,7 @@ const UsersManagement = () => {
                             refetch()
                             Swal.fire({
                                 title: "Confarm!",
-                                text: `Done ${user.displayName} ${roleInfo.role==='admin'?'has been admin':'has been user'} `,
+                                text: `Done ${user.displayName} ${roleInfo.role === 'admin' ? 'has been admin' : 'has been user'} `,
                                 icon: "success"
                             });
                         }
@@ -46,15 +48,38 @@ const UsersManagement = () => {
     }
     const handlerAdmin = (user) => {
         const roleInfo = { role: 'admin' }
-        handlerAdminMakeRemove(user,roleInfo)
+        handlerAdminMakeRemove(user, roleInfo)
     }
     const handlerRemove = (user) => {
         const roleInfo = { role: 'user' }
-        handlerAdminMakeRemove(user,roleInfo)
+        handlerAdminMakeRemove(user, roleInfo)
     }
     return (
         <div>
             <h2 className="text-4xl">Manage users {users.length}</h2>
+            {
+                <p>Search Text: {searchText}</p>
+            }
+            {/* Search input field here */}
+            <label className="input my-5 border-2 border-black py-2">
+                <svg className="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g
+                        strokeLinejoin="round"
+                        strokeLinecap="round"
+                        strokeWidth="2.5"
+                        fill="none"
+                        stroke="currentColor"
+                    >
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <path d="m21 21-4.3-4.3"></path>
+                    </g>
+                </svg>
+
+                <input type="search" onChange={(e)=>setSearchText(e.target.value)} className="grow" placeholder="Search user" />
+
+                <kbd className="kbd kbd-sm">⌘</kbd>
+                <kbd className="kbd kbd-sm">K</kbd>
+            </label>
             <div className="overflow-x-auto">
                 <table className="table">
                     {/* head */}
@@ -97,7 +122,7 @@ const UsersManagement = () => {
                             <td className={`${user.role === 'rider' ? 'text-green-600' : ''}`}>{user.role}</td>
                             <td>
                                 {user.role === 'admin' ?
-                                    <button onClick={()=>handlerRemove(user)} className="btn btn-ghost btn-xs text-3xl text-red-400"><MdOutlineAdminPanelSettings /></button>
+                                    <button onClick={() => handlerRemove(user)} className="btn btn-ghost btn-xs text-3xl text-red-400"><MdOutlineAdminPanelSettings /></button>
                                     :
                                     <button onClick={() => handlerAdmin(user)} className="btn btn-ghost btn-xs text-3xl text-green-600"><MdAdminPanelSettings /></button>
                                 }
