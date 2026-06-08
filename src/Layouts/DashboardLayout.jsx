@@ -6,8 +6,11 @@ import { RiMotorbikeFill } from 'react-icons/ri';
 import { Link, Outlet } from 'react-router';
 import useRole from '../Hooks/useRole';
 const DashboardLayout = () => {
-    const { role } = useRole()
-    // console.log('role',role);
+    const { role, isLoading } = useRole();
+    if (isLoading) {
+        return <p>DashBoard loadng...</p>
+    }
+    // console.log('in the dashboard',role);
     return (
         <div className="drawer lg:drawer-open bg-gray-200 w-11/12 mx-auto">
             <input id="my-drawer-4" type="checkbox" className="drawer-toggle" />
@@ -54,7 +57,7 @@ const DashboardLayout = () => {
                         </li>
                         {/* Role admin then show approved rider and user management page */}
                         {
-                            role ==='admin' && <>
+                            role === 'admin' && <>
                                 {/* Approve rider */}
                                 <li>
                                     <Link to={'/dashboard/approveRider'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
@@ -71,6 +74,10 @@ const DashboardLayout = () => {
                                 </li>
                             </>
                         }
+
+
+
+
                         {/* MyPercels 2 */}
                         {/* <li>
                             <Link to={'/dashboard/myParcel2'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
