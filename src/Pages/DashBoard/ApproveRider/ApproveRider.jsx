@@ -91,6 +91,7 @@ const ApproveRider = () => {
                             <th>Work Status</th>
                             <th>Email</th>
                             <th>Region</th>
+                            <th>District</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -112,6 +113,9 @@ const ApproveRider = () => {
                                     </td>
                                     <td>
                                         <p >{rider.region}</p>
+                                    </td>
+                                    <td>
+                                        <p >{rider.district}</p>
                                     </td>
                                     <td>
                                         <button onClick={() => handleDetails(rider)} className="btn mx-2"><FaEye />

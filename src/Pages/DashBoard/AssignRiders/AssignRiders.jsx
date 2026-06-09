@@ -1,56 +1,36 @@
+import { useQuery } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react';
 import useInstance from '../../../Hooks/useInstance';
-import { useQuery } from '@tanstack/react-query';
-
 const AssignRiders = () => {
-    const [sellectedParcels, setSellectedParcels] = useState(null)
+    // ! parcels state here;
+    const [sellectedParcel, setSellectedParcel] = useState(null);
     const instance = useInstance();
     const assignModal = useRef(null)
-    const { data: parcles = [],refetch:parcelRefetch } = useQuery({
-        queryKey: ['parcels', 'pendign-pickup'],
-        queryFn: async () => {
-            const res = await instance.get('/percelDatas?deliveryStatus=pending-pickup')
-            return res.data
-        }
-    })
-    //? query for availabel rider;
-    const { data: riders = [] } = useQuery({
-        queryKey: ['riders', sellectedParcels?.senderDestrict],
-        enabled: !!sellectedParcels,
-        queryFn: async () => {
-            const res = await instance.get(`/riders?status=Approved&workStatus=available&district=${sellectedParcels?.senderDestrict}`)
-            return res.data
-
-        }
-    })
     const handlerModal = (parcel) => {
-        setSellectedParcels(parcel)
         assignModal.current.showModal()
+        setSellectedParcel(parcel)
     }
-    // ? handlerAssign code;
-    const handlerRidersAssign = (rider) => {
-        // console.log('in the riders',rider);
-        const ridersInfo = {
-            riderId:rider._id,
-            riderEmail:rider.email,
-            riderName:rider.name,
-            parcleId:sellectedParcels._id,
-
+    //Todo: deleveryStatus pending-pickup data load in this page!
+    const { data: parcels = [] } = useQuery({
+        queryKey: ['parcels', 'pending-pickup'],
+        queryFn: async () => {
+            const res = await instance.get(`/percelDatas?deliveryStatus=pending-pickup`)
+            return res.data
         }
-        instance.patch(`/percelDatas/${sellectedParcels._id}`,ridersInfo)
-        .then(res=>{
-            if(res.data.modifiedCount){
-                parcelRefetch();
-                assignModal.current.close();
-                alert('Rider has been assign')
-            }
-        })
-
-    }
+    })
+    //? Available rider load in riders collection;
+    const { data: riders = [] } = useQuery({
+        queryKey: ['riders', sellectedParcel?.senderDestrict],
+        enabled: !!sellectedParcel,
+        queryFn: async () => {
+            const res = await instance.get(`/riders?status=Approved&workStatus=available&district=${sellectedParcel?.senderDestrict}`)
+            return res.data
+        }
+    })
     return (
         <div>
-            <h2 className="text-4xl">Assign Riders: {parcles.length}</h2>
-
+            <h2 className="text-4xl">Assign Riders (already paid done): {parcels.length}</h2>
+            {/*Table formate showing all pending for pickup parcels info */}
             <div className="overflow-x-auto">
                 <table className="table table-zebra">
                     {/* head */}
@@ -58,56 +38,56 @@ const AssignRiders = () => {
                         <tr>
                             <th>#</th>
                             <th>Name</th>
-                            <th>Pickup District</th>
-                            <th>Cost</th>
-                            <th>CreateAT</th>
-                            <th>Actions</th>
+                            <th>District</th>
+                            <th>CreatedAt</th>
+                            <th>DeliveryStatus</th>
+                            <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
-
-
                         {
-                            parcles.map((parcel, index) => <tr key={index}>
-                                <th>{index + 1}</th>
+                            parcels.map((parcel, i) => <tr key={parcel._id}>
+                                <th>{i + 1}</th>
                                 <td>{parcel.percelName}</td>
                                 <td>{parcel.senderDestrict}</td>
-                                <td>{parcel.cost}</td>
                                 <td>{parcel.createdAT}</td>
-
+                                <td>{parcel.deliveryStatus}</td>
                                 <td>
-                                    <button onClick={() => handlerModal(parcel)} className="btn">Find Riders</button>
+                                    <button onClick={() => handlerModal(parcel)} className="btn btn-accent">Find riders</button>
                                 </td>
                             </tr>)
                         }
 
+
                     </tbody>
                 </table>
             </div>
+
             {/* modal code */}
             <dialog ref={assignModal} className="modal modal-bottom sm:modal-middle">
                 <div className=" modal-box bg-white text-black shadow-2xl border border-gray-200">
-                    <h3 className="font-bold text-lg">Rider for available {riders.length}</h3>
-
+                    <h3 className="font-bold text-lg">Rider for available {riders.length} </h3>
+                    {/* available rider in this district table formate show and assing */}
                     <div className="overflow-x-auto">
                         <table className="table table-zebra">
                             {/* head */}
                             <thead>
                                 <tr>
-                                    <th></th>
+                                    <th>#</th>
                                     <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Actions</th>
+                                    <th>About rider</th>
+                                    <th>Rider Liceno:</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    riders.map((rider, index) => <tr key={index}>
-                                        <th>{index + 1}</th>
+                                    riders.map((rider,i) => <tr key={i}>
+                                        <th>{i+1}</th>
                                         <td>{rider.name}</td>
-                                        <td>{rider.email}</td>
+                                        <td>{rider.yourSelf}</td>
+                                        <td>{rider.licenseNumber}</td>
                                         <td>
-                                            <button onClick={() => handlerRidersAssign(rider)} className="btn">Assign rider</button>
+                                            <button className='btn'>Assign</button>
                                         </td>
                                     </tr>)
                                 }
@@ -124,9 +104,9 @@ const AssignRiders = () => {
                     </div>
                 </div>
             </dialog>
+            {/*  parcles */}
             {
-                // console.log(sellectedParcels)
-                // console.log('available rider',Arider)
+
             }
         </div>
     );
