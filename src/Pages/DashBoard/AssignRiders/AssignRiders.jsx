@@ -45,21 +45,7 @@ const AssignRiders = () => {
                 alert('Rider has been assign')
             }
         })
-        /** {
-    "_id": "6a26e36b8264886ce222c581",
-    "name": "bablue",
-    "licenseNumber": "2222258518",
-    "email": "bablue@gmail.com",
-    "region": "Barisal",
-    "nidNumber": "85202520",
-    "phoneNumber": "01211258955",
-    "brandModel": "Monoton",
-    "bikeRegistrationNumber": "00011222333",
-    "yourSelf": "please approved",
-    "status": "Approved",
-    "createdAT": "2026-06-08T15:44:43.323Z",
-    "workStatus": "available"
-} */
+
     }
     return (
         <div>

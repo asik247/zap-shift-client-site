@@ -80,7 +80,7 @@ const SendAPercel = () => {
                                 showConfirmButton: false,
                                 timer: 2500
                             });
-                            // navegate('/dashboard/mypercels')
+                            navegate('/dashboard/mypercels')
                         }
                     })
             }

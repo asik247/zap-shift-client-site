@@ -112,7 +112,7 @@ const Rider = () => {
                                     {/* select district */}
                                     <fieldset class="$$fieldset">
                                         <legend class="$$fieldset-legend">Your Destrict</legend>
-                                        <select defaultValue="Pick a district" class="$$select">
+                                        <select {...register('district')} defaultValue="Pick a district" class="$$select">
                                             <option disabled={true}>Pick a district</option>
                                             {
                                                 allDistricts(regions).map((d, i) => <option value={d} key={i}>{d}</option>)
