@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
 import React, { useRef, useState } from 'react';
 import useInstance from '../../../Hooks/useInstance';
+import Swal from 'sweetalert2';
 const AssignRiders = () => {
     // ! parcels state here;
     const [sellectedParcel, setSellectedParcel] = useState(null);
@@ -11,7 +12,7 @@ const AssignRiders = () => {
         setSellectedParcel(parcel)
     }
     //Todo: deleveryStatus pending-pickup data load in this page!
-    const { data: parcels = [] } = useQuery({
+    const { data: parcels = [], refetch: parcelRefetch } = useQuery({
         queryKey: ['parcels', 'pending-pickup'],
         queryFn: async () => {
             const res = await instance.get(`/percelDatas?deliveryStatus=pending-pickup`)
@@ -27,6 +28,32 @@ const AssignRiders = () => {
             return res.data
         }
     })
+    //? handler assign rider code here;
+    const handlerAssignRider = (rider) => {
+        // console.log('rider clicked',rider);
+        const ridersInfo = {
+            riderId: rider._id,
+            riderEmail: rider.email,
+            riderName: rider.name,
+            parcelId: sellectedParcel._id
+        }
+        instance.patch(`/percelDatas/${sellectedParcel._id}`, ridersInfo)
+            .then(res => {
+                // if(res.data.m)
+                // console.log(res.data);
+                if (res.data.modifiedCount) {
+                    parcelRefetch();
+                    assignModal.current.close();
+                    Swal.fire({
+                        position: "top-end",
+                        icon: "success",
+                        title: "Assign Rider Done",
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                }
+            })
+    }
     return (
         <div>
             <h2 className="text-4xl">Assign Riders (already paid done): {parcels.length}</h2>
@@ -76,18 +103,18 @@ const AssignRiders = () => {
                                     <th>#</th>
                                     <th>Name</th>
                                     <th>About rider</th>
-                                    <th>Rider Liceno:</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 {
-                                    riders.map((rider,i) => <tr key={i}>
-                                        <th>{i+1}</th>
+                                    riders.map((rider, i) => <tr key={i}>
+                                        <th>{i + 1}</th>
                                         <td>{rider.name}</td>
                                         <td>{rider.yourSelf}</td>
-                                        <td>{rider.licenseNumber}</td>
+
                                         <td>
-                                            <button className='btn'>Assign</button>
+                                            <button onClick={() => handlerAssignRider(rider)} className='btn'>Assign</button>
                                         </td>
                                     </tr>)
                                 }
@@ -104,10 +131,7 @@ const AssignRiders = () => {
                     </div>
                 </div>
             </dialog>
-            {/*  parcles */}
-            {
-
-            }
+          
         </div>
     );
 };
