@@ -7,7 +7,7 @@ import Swal from 'sweetalert2';
 const AssignDeliverys = () => {
     const { user } = useAuth();
     const instance = useInstance();
-    const { refetch, data: parcels = []  } = useQuery({
+    const { refetch, data: parcels = [] } = useQuery({
         queryKey: ['parcels', user?.email, 'driver-assign'],
         queryFn: async () => {
             const res = await instance.get(`/percelDatas/rider?riderEmail=${user?.email}&deliveryStatus=driver-assign`)
@@ -43,7 +43,7 @@ const AssignDeliverys = () => {
                             <th></th>
                             <th>Name</th>
                             <th>Confarm</th>
-                            <th>Favorite Color</th>
+                            <th>Other Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -54,10 +54,15 @@ const AssignDeliverys = () => {
                                 <th>{i + 1}</th>
                                 <td>{parcle.percelName}</td>
                                 <td>
-                                    <button onClick={() => handlerAcceptDelivery(parcle)} className="btn bg-green-600-400">Accept</button>
-                                    <button className="btn ms-2 bg-red-500">Reject</button>
+                                    {
+                                        parcle.deliveryStatus === 'driver-assign' ?  <> <button onClick={() => handlerAcceptDelivery(parcle)} className="btn bg-green-600-400">Accept</button>
+                                            <button className="btn ms-2 bg-red-500">Reject</button></>:<span className='text-2xl text-yellow-300'>Accept</span>
+                                    }
+
                                 </td>
-                                <td>Blue</td>
+                                <td>
+                                    
+                                </td>
                             </tr>)
                         }
 
