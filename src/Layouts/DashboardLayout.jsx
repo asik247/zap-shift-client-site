@@ -5,6 +5,7 @@ import { FaHistory, FaTasks, FaUsers } from 'react-icons/fa';
 import { RiEBikeFill, RiMotorbikeFill } from 'react-icons/ri';
 import { Link, Outlet } from 'react-router';
 import useRole from '../Hooks/useRole';
+import { MdOutlineAddTask } from 'react-icons/md';
 const DashboardLayout = () => {
     const { role, isLoading } = useRole();
     if (isLoading) {
@@ -62,6 +63,13 @@ const DashboardLayout = () => {
                                     <Link to={'/dashboard/assignDelivery'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
                                         <FaTasks className="my-1.5 inline-block size-4" />
                                         <span className="is-drawer-close:hidden">Assign Delivery</span>
+                                    </Link >
+                                </li>
+                                {/* completed deliveries */}
+                                <li>
+                                    <Link to={'/dashboard/completeDelivery'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
+                                        <MdOutlineAddTask  className="my-1.5 inline-block size-4" />
+                                        <span className="is-drawer-close:hidden">Complete Delivery</span>
                                     </Link >
                                 </li>
                             </>

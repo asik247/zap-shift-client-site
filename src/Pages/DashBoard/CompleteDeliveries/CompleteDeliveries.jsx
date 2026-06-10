@@ -1,49 +1,38 @@
-import { useQuery } from '@tanstack/react-query';
 import React from 'react';
 import useAuth from '../../../Hooks/useAuth';
 import useInstance from '../../../Hooks/useInstance';
-import Swal from 'sweetalert2';
+import { useQuery } from '@tanstack/react-query';
 
-const AssignDeliverys = () => {
+const CompleteDeliveries = () => {
     const { user } = useAuth();
     const instance = useInstance();
     const { refetch, data: parcels = [] } = useQuery({
         queryKey: ['parcels', user?.email, 'driver-assign'],
         queryFn: async () => {
-            const res = await instance.get(`/percelDatas/rider?riderEmail=${user?.email}&deliveryStatus=driver-assign`)
+            const res = await instance.get(`/percelDatas/rider?riderEmail=${user?.email}&deliveryStatus=parcel_delivered`)
             return res.data
         }
     })
-    //? handler accept delivery;
-    const handlerParcelDelivered = (parcle,status) => {
-        let message = `Thank you with parcel ${status}`
-        const statusInfo = {riderId:parcle.riderId, deliveryStatus: status };
-        instance.patch(`/percelDatas/${parcle._id}/status`, statusInfo)
-            .then(res => {
-                if (res.data.modifiedCount) {
-                    refetch()
-                    Swal.fire({
-                        position: "top-end",
-                        icon: "success",
-                        title: message,
-                        showConfirmButton: false,
-                        timer: 1500
-                    });
-                }
-            })
+    //? rider got taka;
+    const calculatePaymentTaka = (parcle)=>{
+        if(parcle.senderDestrict === parcle.receiverDistrict){
+            return parcle.cost *0.8
+        }
+        else{
+            return parcle.cost*0.6
+        }
     }
     return (
         <div>
-            <p>Parcels Pending Pickup {parcels.length}</p>
-
-            <div className="overflow-x-auto">
-                <table className="table table-zebra">
+            <p>Complete Deliveries {parcels.length}</p>
+              <table className="table table-zebra">
                     {/* head */}
                     <thead>
                         <tr>
                             <th></th>
                             <th>Name</th>
-                            <th>Confarm</th>
+                            <th>Cost</th>
+                            <th>PayOut</th>
                             <th>Other Actions</th>
                         </tr>
                     </thead>
@@ -54,25 +43,26 @@ const AssignDeliverys = () => {
                             parcels.map((parcle, i) => <tr key={i}>
                                 <th>{i + 1}</th>
                                 <td>{parcle.percelName}</td>
-                                <td>
+                                <td>{parcle.cost}</td>
+                                <td>{calculatePaymentTaka(parcle)}</td>
+                                {/* <td>
                                     {
                                         parcle.deliveryStatus === 'driver-assign' ? <> <button onClick={() => handlerParcelDelivered(parcle,'rider-arriving')} className="btn bg-green-600-400">Accept</button>
                                             <button className="btn ms-2 bg-red-500">Reject</button></> : <span className='text-2xl text-yellow-300'>Accept</span>
                                     }
 
-                                </td>
+                                </td> */}
                                 <td>
-                                    <button onClick={() => handlerParcelDelivered(parcle,'parcel_picked_up')} className="btn bg-green-600-400">Mark as picked Up</button>
-                                    <button onClick={() => handlerParcelDelivered(parcle,'parcel_delivered')} className="btn bg-green-600-400">Mark as Delivered</button>
+                                    <button  className="btn bg-green-600-400">Cash Out</button>
+                                    {/* <button onClick={() => handlerParcelDelivered(parcle,'parcel_delivered')} className="btn bg-green-600-400">Mark as Delivered</button> */}
                                 </td>
                             </tr>)
                         }
 
                     </tbody>
                 </table>
-            </div>
         </div>
     );
 };
 
-export default AssignDeliverys;
+export default CompleteDeliveries;

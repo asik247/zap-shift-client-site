@@ -28,6 +28,7 @@ import AdminRoutes from "./AdminRoutes";
 import AssignRiders from "../Pages/DashBoard/AssignRiders/AssignRiders";
 import AssignDeliverys from "../Pages/DashBoard/AssignDeliverys/AssignDeliverys";
 import RiderRoutes from "./RiderRoutes";
+import CompleteDeliveries from "../Pages/DashBoard/CompleteDeliveries/CompleteDeliveries";
 // import AdminRoutes from "./AdminRoutes";
 const router = createBrowserRouter([
     {
@@ -99,6 +100,11 @@ const router = createBrowserRouter([
                 path:'assignDelivery',
                 // Component:AssignDeliverys
                 element:<RiderRoutes><AssignDeliverys></AssignDeliverys></RiderRoutes>
+            },
+            {
+                path:'completeDelivery',
+                // Component:AssignDeliverys
+                element:<RiderRoutes><CompleteDeliveries></CompleteDeliveries></RiderRoutes>
             },
 
             //? Admin only routes
