@@ -26,6 +26,8 @@ import ApproveRider from "../Pages/DashBoard/ApproveRider/ApproveRider";
 import UsersManagement from "../Pages/DashBoard/UsersManagement/UsersManagement";
 import AdminRoutes from "./AdminRoutes";
 import AssignRiders from "../Pages/DashBoard/AssignRiders/AssignRiders";
+import AssignDeliverys from "../Pages/DashBoard/AssignDeliverys/AssignDeliverys";
+import RiderRoutes from "./RiderRoutes";
 // import AdminRoutes from "./AdminRoutes";
 const router = createBrowserRouter([
     {
@@ -92,6 +94,14 @@ const router = createBrowserRouter([
                 Component:ApproveRider
                 // element:<AdminRoutes><ApproveRider></ApproveRider></AdminRoutes>
             },
+            //? Rider only routes;
+            {
+                path:'assignDelivery',
+                // Component:AssignDeliverys
+                element:<RiderRoutes><AssignDeliverys></AssignDeliverys></RiderRoutes>
+            },
+
+            //? Admin only routes
             {
                 path:'usersManagemennt',
                 element:<AdminRoutes><UsersManagement></UsersManagement></AdminRoutes>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { CiDeliveryTruck } from 'react-icons/ci';
-import { FaHistory, FaUsers } from 'react-icons/fa';
+import { FaHistory, FaTasks, FaUsers } from 'react-icons/fa';
 // import { IoCarSportSharp } from 'react-icons/io5';
 import { RiEBikeFill, RiMotorbikeFill } from 'react-icons/ri';
 import { Link, Outlet } from 'react-router';
@@ -55,6 +55,17 @@ const DashboardLayout = () => {
                                 <span className="is-drawer-close:hidden">Payment History</span>
                             </Link >
                         </li>
+                        {/* Role when rider the showing ui this link; */}
+                        {
+                            role === 'rider' && <>
+                                <li>
+                                    <Link to={'/dashboard/assignDelivery'} className="is-drawer-close:tooltip is-drawer-close:tooltip-right" >
+                                        <FaTasks className="my-1.5 inline-block size-4" />
+                                        <span className="is-drawer-close:hidden">Assign Delivery</span>
+                                    </Link >
+                                </li>
+                            </>
+                        }
                         {/* Role admin then show approved rider and user management page */}
                         {
                             role === 'admin' && <>
