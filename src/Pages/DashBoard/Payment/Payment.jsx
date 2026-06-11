@@ -27,6 +27,7 @@ const Payment = () => {
             percelName:percels.percelName,
             percelId:percels._id,
             cost:percels.cost,
+            trackingId:percels.trackingId
         }
      const res = await instance.post('/create-checkout-session',paymentInfo)
      window.location.href = res.data.url

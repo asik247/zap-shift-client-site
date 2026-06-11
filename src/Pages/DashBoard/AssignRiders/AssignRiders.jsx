@@ -13,9 +13,9 @@ const AssignRiders = () => {
     }
     //Todo: deleveryStatus pending-pickup data load in this page!
     const { data: parcels = [], refetch: parcelRefetch } = useQuery({
-        queryKey: ['parcels', 'pending-pickup'],
+        queryKey: ['parcels', 'parcel-paid'],
         queryFn: async () => {
-            const res = await instance.get(`/percelDatas?deliveryStatus=pending-pickup`)
+            const res = await instance.get(`/percelDatas?deliveryStatus=parcel-paid`)
             return res.data
         }
     })
@@ -36,7 +36,7 @@ const AssignRiders = () => {
             riderEmail: rider.email,
             riderName: rider.name,
             parcelId: sellectedParcel._id,
-            trackingId:sellectedParcel.trackingId
+            trackingId: sellectedParcel.trackingId
         }
         instance.patch(`/percelDatas/${sellectedParcel._id}`, ridersInfo)
             .then(res => {
@@ -132,7 +132,7 @@ const AssignRiders = () => {
                     </div>
                 </div>
             </dialog>
-          
+
         </div>
     );
 };
