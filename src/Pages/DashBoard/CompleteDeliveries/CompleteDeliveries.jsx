@@ -6,14 +6,14 @@ import { useQuery } from '@tanstack/react-query';
 const CompleteDeliveries = () => {
     const { user } = useAuth();
     const instance = useInstance();
-    const { refetch, data: parcels = [] } = useQuery({
+    const { data: parcels = [] } = useQuery({
         queryKey: ['parcels', user?.email, 'driver-assign'],
         queryFn: async () => {
             const res = await instance.get(`/percelDatas/rider?riderEmail=${user?.email}&deliveryStatus=parcel_delivered`)
             return res.data
         }
     })
-    //? rider got taka;
+    //? rider got taka✅✅;
     const calculatePaymentTaka = (parcle)=>{
         if(parcle.senderDestrict === parcle.receiverDistrict){
             return parcle.cost *0.8

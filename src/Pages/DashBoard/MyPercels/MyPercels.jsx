@@ -103,7 +103,8 @@ const MyPercels = () => {
                                 </td>
                                
                                 {/* deliveryStatus */}
-                                <td>{percel.trackingId}</td>
+                                {/* Link for this parcel tracking point */}
+                                <Link to={`/parcel-track/${percel.trackingId}`}>{percel.trackingId}</Link>
                                 <td>{percel.deliveryStatus}</td>
                                 {/* Actions */}
                                 <td>

@@ -29,6 +29,7 @@ import AssignRiders from "../Pages/DashBoard/AssignRiders/AssignRiders";
 import AssignDeliverys from "../Pages/DashBoard/AssignDeliverys/AssignDeliverys";
 import RiderRoutes from "./RiderRoutes";
 import CompleteDeliveries from "../Pages/DashBoard/CompleteDeliveries/CompleteDeliveries";
+import ParcelTrack from "../Pages/ParcelTrack/ParcelTrack";
 // import AdminRoutes from "./AdminRoutes";
 const router = createBrowserRouter([
     {
@@ -40,6 +41,11 @@ const router = createBrowserRouter([
             { path: 'aboutPage', Component: AboutPage },
             { path: 'services', element: <Services></Services> },
             { path: 'coverage', element: <PrivateRoutes><CoverPage></CoverPage></PrivateRoutes>, loader: () => fetch('/servicesHouse.json').then(res => res.json()) },
+            // ? parcel track path;
+            {
+                path:'parcel-track/:trackingId',
+                Component:ParcelTrack
+            },
             { path: 'coverage2', Component: CoverPage2 },
             {
                 path: 'percelSend',

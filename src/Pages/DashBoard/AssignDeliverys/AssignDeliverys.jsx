@@ -16,8 +16,12 @@ const AssignDeliverys = () => {
     })
     //? handler accept delivery;
     const handlerParcelDelivered = (parcle,status) => {
-        let message = `Thank you with parcel ${status}`
-        const statusInfo = {riderId:parcle.riderId, deliveryStatus: status };
+        let message = `Thank you with parcel ${status.split('_').join(' ')}`
+        const statusInfo = {
+            riderId:parcle.riderId, 
+            trackingId:parcle.trackingId,
+            deliveryStatus: status
+         };
         instance.patch(`/percelDatas/${parcle._id}/status`, statusInfo)
             .then(res => {
                 if (res.data.modifiedCount) {

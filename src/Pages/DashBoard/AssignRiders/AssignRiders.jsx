@@ -35,7 +35,8 @@ const AssignRiders = () => {
             riderId: rider._id,
             riderEmail: rider.email,
             riderName: rider.name,
-            parcelId: sellectedParcel._id
+            parcelId: sellectedParcel._id,
+            trackingId:sellectedParcel.trackingId
         }
         instance.patch(`/percelDatas/${sellectedParcel._id}`, ridersInfo)
             .then(res => {
